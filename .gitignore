@@ -8,3 +8,5 @@
 # Ignore project level .idea folders
 */.idea
 /jOOQ-r2dbc/
+
+*.flattened-pom.xml

@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.jooq</groupId>
         <artifactId>jooq-parent</artifactId>
-        <version>3.21.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>jooq-meta-extensions-hibernate</artifactId>
@@ -75,4 +75,13 @@
 
 
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>default</id>
+            <properties>
+                <maven.deploy.skip>true</maven.deploy.skip>
+            </properties>
+        </profile>
+    </profiles>
 </project>

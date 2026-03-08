@@ -933,6 +933,58 @@ public class DSL {
     }
 
     /**
+     * Create an executor backed by a Vert.x reactive PostgreSQL client, using
+     * a pipelined {@link io.vertx.sqlclient.SqlClient} for read queries and a
+     * connection {@link io.vertx.sqlclient.Pool} for write queries and
+     * transactions.  The dialect defaults to {@link SQLDialect#POSTGRES}.
+     *
+     * <p>Example:
+     * <pre>{@code
+     * SqlClient pipeliningClient = PgBuilder.client()
+     *     .with(poolOptions).connectingTo(connectOptions).build();
+     *
+     * Pool pool = PgBuilder.pool()
+     *     .with(poolOptions).connectingTo(connectOptions).build();
+     *
+     * DSLContext ctx = DSL.using(pipeliningClient, pool);
+     * }</pre>
+     *
+     * @param sqlClient the Vert.x pipelined client used for SELECT queries
+     * @param pool      the Vert.x pool used for DML queries and transactions
+     */
+    @NotNull
+    public static DSLContext using(io.vertx.sqlclient.SqlClient sqlClient, io.vertx.sqlclient.Pool pool) {
+        return using(new org.jooq.impl.vertx.VertxConnectionFactory(sqlClient, pool), SQLDialect.POSTGRES);
+    }
+
+    /**
+     * Create an executor backed by a Vert.x reactive SQL client with an
+     * explicit dialect.
+     *
+     * @param sqlClient the Vert.x pipelined client used for SELECT queries
+     * @param pool      the Vert.x pool used for DML queries and transactions
+     * @param dialect   the SQL dialect to use
+     */
+    @NotNull
+    public static DSLContext using(io.vertx.sqlclient.SqlClient sqlClient, io.vertx.sqlclient.Pool pool, SQLDialect dialect) {
+        return using(new org.jooq.impl.vertx.VertxConnectionFactory(sqlClient, pool), dialect);
+    }
+
+    /**
+     * Create an executor backed by a Vert.x reactive SQL client with an
+     * explicit dialect and runtime settings.
+     *
+     * @param sqlClient the Vert.x pipelined client used for SELECT queries
+     * @param pool      the Vert.x pool used for DML queries and transactions
+     * @param dialect   the SQL dialect to use
+     * @param settings  the runtime settings to apply
+     */
+    @NotNull
+    public static DSLContext using(io.vertx.sqlclient.SqlClient sqlClient, io.vertx.sqlclient.Pool pool, SQLDialect dialect, Settings settings) {
+        return using(new org.jooq.impl.vertx.VertxConnectionFactory(sqlClient, pool), dialect, settings);
+    }
+
+    /**
      * Create an executor from a custom configuration.
      *
      * @param configuration The configuration

@@ -27,6 +27,9 @@ module org.jooq {
 
     requires transitive org.reactivestreams;
     requires transitive r2dbc.spi;
+    requires transitive io.vertx.sql.client;
+    requires transitive io.vertx.core;
+    requires reactor.core;
 
     // [#11738] optional vendor specific JDBC drivers
 

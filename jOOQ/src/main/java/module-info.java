@@ -41,6 +41,7 @@ module org.jooq {
     exports org.jooq.conf;
     exports org.jooq.exception;
     exports org.jooq.impl;
+    exports org.jooq.impl.vertx;
     exports org.jooq.migrations.xml.jaxb;
     exports org.jooq.tools;
     exports org.jooq.tools.csv;

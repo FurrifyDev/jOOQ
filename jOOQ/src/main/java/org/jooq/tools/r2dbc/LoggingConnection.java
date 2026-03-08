@@ -87,8 +87,8 @@ public class LoggingConnection extends DefaultConnection {
     @Override
     public Publisher<Void> close() {
         return s -> {
-            if (log.isDebugEnabled())
-                log.debug("Connection::close");
+            if (log.isTraceEnabled())
+                log.trace("Connection::close");
 
             getDelegate().close().subscribe(s);
         };
@@ -121,8 +121,8 @@ public class LoggingConnection extends DefaultConnection {
 
     @Override
     public Statement createStatement(String sql) {
-        if (log.isDebugEnabled())
-            log.debug("Connection::createStatement", sql);
+        if (log.isTraceEnabled())
+            log.trace("Connection::createStatement", sql);
 
         return new LoggingStatement(getDelegate().createStatement(sql));
     }
@@ -200,8 +200,8 @@ public class LoggingConnection extends DefaultConnection {
     @Override
     public Publisher<Boolean> validate(ValidationDepth depth) {
         return s -> {
-            if (log.isDebugEnabled())
-                log.debug("Connection::validate", depth);
+            if (log.isTraceEnabled())
+                log.trace("Connection::validate", depth);
 
             getDelegate().validate(depth).subscribe(s);
         };

@@ -47,6 +47,7 @@ import static org.jooq.tools.StringUtils.abbreviate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 
 import org.jooq.Configuration;
@@ -87,7 +88,6 @@ public class LoggerListener implements ExecuteListener {
             if (!log.isTraceEnabled())
                 configuration = configuration.deriveAppending(new BindValueAbbreviator());
 
-            String[] batchSQL = ctx.batchSQL();
             if (ctx.query() != null) {
 
                 // Actual SQL passed to JDBC
@@ -96,8 +96,8 @@ public class LoggerListener implements ExecuteListener {
                 // [#1278] DEBUG log also SQL with inlined bind values, if
                 // that is not the same as the actual SQL passed to JDBC
                 String inlined = DSL.using(configuration).renderInlined(ctx.query());
-                if (!ctx.sql().equals(inlined))
-                    log.debug("-> with bind values", newline + inlined);
+                if (log.isTraceEnabled() && !Objects.equals(ctx.sql(), inlined))
+                    log.trace("-> with bind values", newline + inlined);
             }
 
             // [#2987] Log routines
@@ -107,8 +107,8 @@ public class LoggerListener implements ExecuteListener {
                 String inlined = DSL.using(configuration)
                                     .renderInlined(ctx.routine());
 
-                if (!ctx.sql().equals(inlined))
-                    log.debug("-> with bind values", newline + inlined);
+                if (log.isTraceEnabled() && !Objects.equals(ctx.sql(), inlined))
+                    log.trace("-> with bind values", newline + inlined);
             }
 
             else if (!StringUtils.isBlank(ctx.sql())) {
@@ -182,11 +182,15 @@ public class LoggerListener implements ExecuteListener {
     @SuppressWarnings("unchecked")
     @Override
     public void fetchEnd(ExecuteContext ctx) {
+        if (!log.isTraceEnabled()) {
+            return;
+        }
+
         Result<Record> buffer = (Result<Record>) ctx.data(BUFFER);
 
-        if (buffer != null && !buffer.isEmpty() && log.isDebugEnabled()) {
+        if (buffer != null && !buffer.isEmpty()) {
             log(ctx.configuration(), buffer);
-            log.debug("Fetched row(s)", buffer.size() + (buffer.size() < maxRows() ? "" : " (or more)"));
+            log.trace("Fetched row(s)", buffer.size() + (buffer.size() < maxRows() ? "" : " (or more)"));
         }
     }
 

@@ -27,6 +27,9 @@ module org.jooq {
 
     requires transitive org.reactivestreams;
     requires transitive r2dbc.spi;
+    requires transitive io.vertx.sql.client;
+    requires transitive io.vertx.core;
+    requires reactor.core;
 
     // [#11738] optional vendor specific JDBC drivers
 
@@ -38,6 +41,7 @@ module org.jooq {
     exports org.jooq.conf;
     exports org.jooq.exception;
     exports org.jooq.impl;
+    exports org.jooq.impl.vertx;
     exports org.jooq.migrations.xml.jaxb;
     exports org.jooq.tools;
     exports org.jooq.tools.csv;

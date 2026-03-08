@@ -96,6 +96,7 @@ import org.jooq.Converter;
 import org.jooq.Cursor;
 import org.jooq.DSLContext;
 import org.jooq.DataType;
+import org.jooq.ExecuteListener;
 import org.jooq.Field;
 import org.jooq.Function3;
 import org.jooq.Isolation;
@@ -120,6 +121,7 @@ import org.jooq.impl.DefaultConnectionFactory.NonClosingConnection;
 import org.jooq.impl.DefaultRenderContext.Rendered;
 import org.jooq.impl.ThreadGuard.Guard;
 import org.jooq.tools.JooqLogger;
+import org.jooq.tools.StopWatch;
 import org.jooq.tools.jdbc.DefaultPreparedStatement;
 import org.jooq.tools.jdbc.DefaultResultSet;
 import org.jooq.tools.jdbc.MockArray;
@@ -342,11 +344,13 @@ final class R2DBC {
 
         @Override
         public final void onError(Throwable t) {
+            fireListenerException(t);
             complete(true, () -> downstream.subscriber.onError(translate(downstream.configuration.dsl(), downstream.sql(), t)));
         }
 
         @Override
         public final void onComplete() {
+            fireListenerFetchEnd();
             complete(false, () -> downstream.subscriber.onComplete());
         }
 
@@ -358,6 +362,34 @@ final class R2DBC {
             //                   completion.
             if ((cancelled || downstream.forwarders.isEmpty()) && !completed.getAndSet(true))
                 downstream.complete(onComplete);
+        }
+
+        /**
+         * Returns the {@link QueryExecutionSubscriber} that drives this result
+         * subscriber, or {@code null} when running in a batch context where no
+         * per-query {@link DefaultExecuteContext} exists.
+         */
+        QueryExecutionSubscriber<?,?> qes() {
+            if (downstream instanceof QuerySubscription<?,?> qs)
+                return qs.queryExecutionSubscriber;
+            return null;
+        }
+
+        private void fireListenerFetchEnd() {
+            QueryExecutionSubscriber<?,?> qes = qes();
+            if (qes != null && qes.execCtx != null) {
+                qes.execListener.fetchEnd(qes.execCtx);
+                qes.execListener.end(qes.execCtx);
+            }
+        }
+
+        private void fireListenerException(Throwable t) {
+            QueryExecutionSubscriber<?,?> qes = qes();
+            if (qes != null && qes.execCtx != null) {
+                RuntimeException re = t instanceof RuntimeException r ? r : new RuntimeException(t);
+                qes.execCtx.exception(re);
+                qes.execListener.exception(qes.execCtx);
+            }
         }
     }
 
@@ -384,6 +416,7 @@ final class R2DBC {
         @Override
         public void onNext(Result r) {
             Subscriber s = downstream.forwardingSubscriber((AbstractResultSubscriber) this);
+            QueryExecutionSubscriber<?,?> qes = qes();
 
             // [#13565] r2dbc-spi's Result::getRowsUpdated now returns Long, not
             //          Integer. To stay backwards compatible with 0.x drivers,
@@ -392,6 +425,12 @@ final class R2DBC {
             ((Publisher) r.getRowsUpdated()).subscribe(subscriber(
                 s::onSubscribe,
                 t -> {
+                    if (qes != null && qes.execCtx != null) {
+                        long largeRows = t instanceof Long l ? l : t instanceof Integer i ? (long) i : 0L;
+                        qes.execCtx.rowsLarge(largeRows);
+                        qes.execListener.executeEnd(qes.execCtx);
+                    }
+
                     if (t instanceof Long l)
                         s.onNext(new RowCount(l));
                     else if (t instanceof Integer i)
@@ -436,14 +475,13 @@ final class R2DBC {
         @SuppressWarnings({ "unchecked", "rawtypes" })
         @Override
         public final void onNext(Result r) {
+            QueryExecutionSubscriber<?,?> qes = qes();
+
             r.map((row, meta) -> {
                 try {
                     // TODO: Cache this getFields() call
                     Field<?>[] fields = query.getFields(() -> new R2DBCResultSetMetaData(query.configuration(), meta));
 
-                    // TODO: This call is duplicated from CursorImpl and related classes.
-                    // Refactor this call to make sure code is re-used, especially when
-                    // ExecuteListener lifecycle management is implemented
                     RecordDelegate<AbstractRecord> delegate = Tools.newRecord(
                         true,
                         query.configuration(),
@@ -461,8 +499,18 @@ final class R2DBC {
                         0
                     );
 
+                    // Reuse the shared per-execution context and composite listener so that
+                    // ExecuteListener hooks (recordStart/recordEnd) fire correctly, including
+                    // LoggerListener row-buffering at DEBUG level.
+                    DefaultExecuteContext recordCtx = qes != null && qes.execCtx != null
+                        ? qes.execCtx
+                        : new DefaultExecuteContext(query.configuration(), query);
+                    ExecuteListener recordListener = qes != null && qes.execListener != null
+                        ? qes.execListener
+                        : new DefaultExecuteListener();
+
                     return (R) delegate.operate(new CursorImpl.CursorRecordInitialiser(
-                        new DefaultExecuteContext(query.configuration(), query), new DefaultExecuteListener(),
+                        recordCtx, recordListener,
                         ctx, Tools.row0(fields), 0
                     ));
                 }
@@ -531,6 +579,8 @@ final class R2DBC {
         final Configuration                                                                                configuration;
         final Function3<Q, AbstractNonBlockingSubscription<T>, R2DBCPreparedStatement, Subscriber<Result>> resultSubscriber;
         volatile String                                                                                    sql;
+        volatile DefaultExecuteContext                                                                     execCtx;
+        volatile ExecuteListener                                                                           execListener;
 
         QueryExecutionSubscriber(
             Q query,
@@ -548,11 +598,20 @@ final class R2DBC {
         final void onNext0(Connection c) {
             try {
                 if (query.isExecutable()) {
-                    Rendered rendered = rendered(configuration, query);
-                    Statement stmt = c.createStatement(sql = rendered.sql);
-                    R2DBCPreparedStatement s = new R2DBCPreparedStatement(configuration, stmt);
-                    new DefaultBindContext(configuration, null, s).visit(rendered.bindValues);
+                    Execution exec = execution(configuration, query);
+                    execCtx = exec.ctx();
+                    execListener = exec.listener();
 
+                    execListener.prepareStart(execCtx);
+                    Statement stmt = c.createStatement(sql = execCtx.sql());
+                    R2DBCPreparedStatement s = new R2DBCPreparedStatement(configuration, stmt);
+                    execListener.prepareEnd(execCtx);
+
+                    execListener.bindStart(execCtx);
+                    new DefaultBindContext(configuration, null, s).visit(exec.rendered().bindValues);
+                    execListener.bindEnd(execCtx);
+
+                    execListener.executeStart(execCtx);
                     // TODO: Reuse org.jooq.impl.Tools.setFetchSize(ExecuteContext ctx, int fetchSize)
                     AbstractResultQuery<?> q1 = abstractResultQuery(query);
                     if (q1 != null) {
@@ -599,6 +658,13 @@ final class R2DBC {
             this(truncateUpdateCount(largeRows), largeRows);
         }
     }
+
+    /**
+     * Holds the rendered SQL, the per-execution context, and the composite
+     * listener for a single R2DBC query execution. Created by
+     * {@link #execution(Configuration, Query)}.
+     */
+    static final record Execution(Rendered rendered, DefaultExecuteContext ctx, ExecuteListener listener) {}
 
     static final record NoOpSubscription(Subscriber<?> subscriber) implements Subscription {
         @Override
@@ -987,6 +1053,38 @@ final class R2DBC {
     // -------------------------------------------------------------------------
     // Internal R2DBC specific utilities
     // -------------------------------------------------------------------------
+
+    /**
+     * Create a full {@link Execution} for a reactive query: renders the SQL,
+     * populates the {@link DefaultExecuteContext} with the rendered SQL and
+     * bind values, and initialises the composite {@link ExecuteListener} (which
+     * includes {@link org.jooq.tools.LoggerListener} when DEBUG logging is on).
+     * <p>
+     * The caller is responsible for firing the appropriate listener hooks
+     * ({@code renderEnd}, {@code bindEnd}, {@code executeStart}, …) on the
+     * returned listener at the right points in the reactive pipeline.
+     */
+    static final Execution execution(Configuration configuration, Query query) {
+        Configuration c = configuration.deriveSettings(s -> setParamType(configuration.dialect(), s));
+        DefaultExecuteContext ctx = new DefaultExecuteContext(c, query);
+        final var executeListeners = ExecuteListeners.getAndStart(ctx, false);
+
+        executeListeners.renderStart(ctx);
+        Rendered rendered = Rendered.rendered(
+            c,
+            ctx,
+
+            // [#17088] Some rendering decisions may be made based on whether we're using R2DBC
+            r -> r.paramType(c.settings().getParamType()).data(DATA_RENDER_FOR_R2DBC, true),
+            query,
+            true,
+            false
+        );
+        rendered.setSQLAndParams(ctx);
+        executeListeners.renderEnd(ctx);
+
+        return new Execution(rendered, ctx, executeListeners);
+    }
 
     static final Rendered rendered(Configuration configuration, Query query) {
         Configuration c = configuration.deriveSettings(s -> setParamType(configuration.dialect(), s));

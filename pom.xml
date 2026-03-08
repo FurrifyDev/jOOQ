@@ -6,7 +6,7 @@
 
     <groupId>org.jooq</groupId>
     <artifactId>jooq-parent</artifactId>
-    <version>3.21.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>jOOQ Parent</name>
@@ -18,7 +18,20 @@
 
     <url>https://www.jooq.org</url>
 
+    <distributionManagement>
+        <repository>
+            <id>snepdragon</id>
+            <url>https://repo.snepdragon.net/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snepdragon</id>
+            <url>https://repo.snepdragon.net/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
+        <revision>3.21.2-SNAPSHOT</revision>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -39,24 +52,24 @@
         <!-- R2DBC SPI version and some matching driver versions -->
         <io.r2dbc.version>1.0.0.RELEASE</io.r2dbc.version>
 
-        <!-- From JDK 21 onwards, this is the required version of Xtend -->
-        <xtend.version>2.32.0</xtend.version>
+        <vertx.sql.version>5.0.8</vertx.sql.version>
+
+        <xtend.version>2.42.0</xtend.version>
 
         <!-- From JDK 11 onwards, we need to depend on the JAXB API explicitly -->
         <jaxb.version>4.0.2</jaxb.version>
         <jaxb.impl.version>4.0.5</jaxb.impl.version>
 
         <!-- Java version -->
-        <java.version>21</java.version>
+        <java.version>25</java.version>
 
         <!-- Scala versions -->
         <scala.version>2.13.16</scala.version>
         <scala3.version>3.5.0</scala3.version>
 
         <!-- Kotlin versions -->
-        <kotlin.version>1.9.25</kotlin.version>
-        <kotlin2.version>2.0.0</kotlin2.version>
-        <kotlinx.coroutines.version>1.7.3</kotlinx.coroutines.version>
+        <kotlin.version>2.3.10</kotlin.version>
+        <kotlinx.coroutines.version>1.10.2</kotlinx.coroutines.version>
 
         <!-- DefaultRecordMapper and jOOQ-meta-extensions can read JPA annotations -->
         <jakarta.persistence-api.version>3.0.0</jakarta.persistence-api.version>
@@ -74,7 +87,7 @@
         <jackson3.version>3.1.0</jackson3.version>
         <jackson3.version.databind>3.1.0</jackson3.version.databind>
         <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
-        
+
         <!-- Build plugin versions -->
         <apache.felix.version>6.0.0</apache.felix.version>
         <biz.aQute.version>7.1.0</biz.aQute.version>
@@ -86,11 +99,6 @@
             <url>https://www.jooq.org/inc/LICENSE.txt</url>
             <distribution>repo</distribution>
         </license>
-
-
-
-
-
 
 
     </licenses>
@@ -160,11 +168,11 @@
                 <artifactId>jooq-codegen</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>org.jooq</groupId>-->
+            <!--                <artifactId>jooq-codegen-maven</artifactId>-->
+            <!--                <version>${project.version}</version>-->
+            <!--            </dependency>-->
             <dependency>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-gradle</artifactId>
@@ -234,6 +242,21 @@
                 <version>3.7.4</version>
             </dependency>
 
+            <!-- VERT.X -->
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-sql-client</artifactId>
+                <version>${vertx.sql.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-pg-client</artifactId>
+                <version>${vertx.sql.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
             <!-- Data binding -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -255,7 +278,7 @@
                 <artifactId>jackson-module-kotlin</artifactId>
                 <version>${jackson.version.kotlin}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>tools.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
@@ -315,18 +338,6 @@
             </dependency>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             <dependency>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-xtend</artifactId>
@@ -347,34 +358,6 @@
                 <artifactId>jakarta.xml.bind-api</artifactId>
                 <version>${jaxb.version}</version>
             </dependency>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             <!-- Optional logging dependencies -->
@@ -454,18 +437,6 @@
             </dependency>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             <!-- Some examples require testcontainers as dependencies -->
             <dependency>
                 <groupId>org.testcontainers</groupId>
@@ -507,29 +478,6 @@
                 <artifactId>firebird-testcontainers-java</artifactId>
                 <version>1.3.0</version>
             </dependency>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             <!-- jooq-meta-extensions and integration tests have this dependency -->
@@ -650,12 +598,12 @@
                         <meminitial>256m</meminitial>
                         <encoding>UTF-8</encoding>
 
-                        <release>21</release>
+                        <release>25</release>
 
 
                         <!-- IntelliJ needs these https://youtrack.jetbrains.com/issue/IDEA-195472 -->
-                        <source>21</source>
-                        <target>21</target>
+                        <source>25</source>
+                        <target>25</target>
 
                         <debug>true</debug>
                         <debuglevel>lines,vars,source</debuglevel>
@@ -670,7 +618,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.1</version>
+                    <version>3.4.0</version>
                     <inherited>true</inherited>
                     <executions>
                         <execution>
@@ -790,19 +738,6 @@
                         </execution>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                     </executions>
                 </plugin>
 
@@ -830,7 +765,7 @@
                     <version>3.5.4</version>
                     <configuration>
                         <testNGArtifactName>none:none</testNGArtifactName>
-                        
+
                         <!-- Prevent Kotlin OOME -->
                         <argLine>-Xmx4G</argLine>
                     </configuration>
@@ -859,11 +794,11 @@
                     </configuration>
                 </plugin>
 
-                <plugin>
-                    <groupId>org.jooq</groupId>
-                    <artifactId>jooq-codegen-maven</artifactId>
-                    <version>${project.version}</version>
-                </plugin>
+                <!--                <plugin>-->
+                <!--                    <groupId>org.jooq</groupId>-->
+                <!--                    <artifactId>jooq-codegen-maven</artifactId>-->
+                <!--                    <version>${project.version}</version>-->
+                <!--                </plugin>-->
 
                 <plugin>
                     <groupId>org.owasp</groupId>
@@ -872,6 +807,16 @@
                     <configuration>
                         <failBuildOnCVSS>0</failBuildOnCVSS>
                         <skipTestScope>true</skipTestScope>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>1.7.3</version>
+                    <configuration>
+                        <updatePomFile>true</updatePomFile>
+                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
                     </configuration>
                 </plugin>
             </plugins>
@@ -891,17 +836,33 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <modules>
         <module>jOOQ</module>
         <module>jOOQ-bom</module>
-
-
-
-
-
 
 
         <module>jOOQ-checker</module>
@@ -922,8 +883,8 @@
         <module>jOOQ-meta-kotlin</module>
 
         <module>jOOQ-codegen</module>
-        <module>jOOQ-codegen-maven</module>
-        <module>jOOQ-migrations-maven</module>
+        <!--        <module>jOOQ-codegen-maven</module>-->
+        <!--        <module>jOOQ-migrations-maven</module>-->
 
         <!-- The transitive egit dependency has a Java 11 baseline -->
         <module>jOOQ-migrations</module>
@@ -934,26 +895,7 @@
         <module>jOOQ-scala_3.5</module>
 
 
-
-
         <module>jOOQ-xtend</module>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     </modules>
@@ -994,392 +936,20 @@
             </activation>
         </profile>
 
-        <profile>
-            <id>all-modules</id>
-            <modules>
-                <!-- all modules which are not already listed as submodules -->
-
-
-
-
-
-
-
-
-
-            </modules>
-        </profile>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <!--        <profile>-->
+        <!--            <id>deploy</id>-->
+        <!--            <properties>-->
+        <!--                <maven.deploy.skip>true</maven.deploy.skip>-->
+        <!--            </properties>-->
+        <!--            <modules>-->
+        <!--                <module>jOOQ</module>-->
+        <!--                <module>jOOQ-meta</module>-->
+        <!--                <module>jOOQ-codegen</module>-->
+        <!--                <module>jOOQ-kotlin</module>-->
+        <!--                <module>jOOQ-kotlin-coroutines</module>-->
+        <!--                <module>jOOQ-postgres-extensions</module>-->
+        <!--            </modules>-->
+        <!--        </profile>-->
 
 
     </profiles>

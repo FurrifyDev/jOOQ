@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.jooq</groupId>
         <artifactId>jooq-parent</artifactId>
-        <version>3.21.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>jooq-kotlin-coroutines</artifactId>
@@ -68,4 +68,13 @@
             <artifactId>kotlinx-coroutines-reactor</artifactId>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>deploy</id>
+            <properties>
+                <maven.deploy.skip>false</maven.deploy.skip>
+            </properties>
+        </profile>
+    </profiles>
 </project>

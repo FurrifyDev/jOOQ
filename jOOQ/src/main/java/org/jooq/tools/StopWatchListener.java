@@ -41,6 +41,8 @@ import org.jooq.ExecuteContext;
 import org.jooq.ExecuteListener;
 import org.jooq.ExecuteListenerProvider;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * A default {@link ExecuteListener} that just logs events to java.util.logging,
  * log4j, or slf4j using the {@link JooqLogger}.
@@ -63,106 +65,106 @@ import org.jooq.ExecuteListenerProvider;
  * @author Lukas Eder
  */
 public class StopWatchListener implements ExecuteListener {
-
-    private final StopWatch watch = new StopWatch();
+    private final AtomicReference<StopWatch> watch = new AtomicReference<>();
 
     @Override
     public void start(ExecuteContext ctx) {
-        watch.splitTrace("Initialising");
+        watch.set(new StopWatch());
+        watch.get().splitTrace("Initialising");
     }
 
     @Override
     public void renderStart(ExecuteContext ctx) {
-        watch.splitTrace("Rendering query");
+        watch.get().splitTrace("Rendering query");
     }
 
     @Override
     public void renderEnd(ExecuteContext ctx) {
-        watch.splitTrace("Query rendered");
+        watch.get().splitTrace("Query rendered");
     }
 
     @Override
     public void prepareStart(ExecuteContext ctx) {
-        watch.splitTrace("Preparing statement");
+        watch.get().splitTrace("Preparing statement");
     }
 
     @Override
     public void prepareEnd(ExecuteContext ctx) {
-        watch.splitTrace("Statement prepared");
+        watch.get().splitTrace("Statement prepared");
     }
 
     @Override
     public void bindStart(ExecuteContext ctx) {
-        watch.splitTrace("Binding variables");
+        watch.get().splitTrace("Binding variables");
     }
 
     @Override
     public void bindEnd(ExecuteContext ctx) {
-        watch.splitTrace("Variables bound");
+        watch.get().splitTrace("Variables bound");
     }
 
     @Override
     public void executeStart(ExecuteContext ctx) {
-        watch.splitTrace("Executing query");
+        watch.get().splitTrace("Executing query");
     }
 
     @Override
     public void executeEnd(ExecuteContext ctx) {
-        watch.splitDebug("Query executed");
+        watch.get().splitDebug("Query executed");
     }
 
     @Override
     public void outStart(ExecuteContext ctx) {
-        watch.splitDebug("Fetching out values");
+        watch.get().splitDebug("Fetching out values");
     }
 
     @Override
     public void outEnd(ExecuteContext ctx) {
-        watch.splitDebug("Out values fetched");
+        watch.get().splitDebug("Out values fetched");
     }
 
     @Override
     public void fetchStart(ExecuteContext ctx) {
-        watch.splitTrace("Fetching results");
+        watch.get().splitTrace("Fetching results");
     }
 
     @Override
     public void resultStart(ExecuteContext ctx) {
-        watch.splitTrace("Fetching result");
+        watch.get().splitTrace("Fetching result");
     }
 
     @Override
     public void recordStart(ExecuteContext ctx) {
-        watch.splitTrace("Fetching record");
+        watch.get().splitTrace("Fetching record");
     }
 
     @Override
     public void recordEnd(ExecuteContext ctx) {
-        watch.splitTrace("Record fetched");
+        watch.get().splitTrace("Record fetched");
     }
 
     @Override
     public void resultEnd(ExecuteContext ctx) {
-        watch.splitTrace("Result fetched");
+        watch.get().splitTrace("Result fetched");
     }
 
     @Override
     public void fetchEnd(ExecuteContext ctx) {
-        watch.splitTrace("Results fetched");
+        watch.get().splitTrace("Results fetched");
     }
 
     @Override
     public void end(ExecuteContext ctx) {
-        watch.splitDebug("Finishing");
+        watch.get().splitDebug("Finishing");
     }
 
     @Override
     public void exception(ExecuteContext ctx) {
-        watch.splitDebug("Exception");
+        watch.get().splitDebug("Exception");
     }
 
     @Override
     public void warning(ExecuteContext ctx) {
-        watch.splitDebug("Warning");
+        watch.get().splitDebug("Warning");
     }
 }

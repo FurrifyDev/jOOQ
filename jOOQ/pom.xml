@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.jooq</groupId>
         <artifactId>jooq-parent</artifactId>
-        <version>3.21.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>jooq</artifactId>
@@ -126,20 +126,20 @@
             <artifactId>jakarta.xml.bind-api</artifactId>
             <optional>true</optional>
         </dependency>
-        
 
-
-
-
-
-
-
-
-
-
-
-
-
+        <!-- Vert.x SQL Client for reactive PostgreSQL integration -->
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-sql-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-pg-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+        </dependency>
 
     </dependencies>
 </project>

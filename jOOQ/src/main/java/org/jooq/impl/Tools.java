@@ -389,6 +389,7 @@ import org.jooq.conf.RenderQuotedNames;
 import org.jooq.conf.Settings;
 import org.jooq.conf.SettingsTools;
 import org.jooq.conf.ThrowExceptions;
+import org.jooq.exception.ControlFlowSignal;
 import org.jooq.exception.DataAccessException;
 import org.jooq.exception.DataException;
 import org.jooq.exception.DataTypeException;
@@ -3740,13 +3741,21 @@ final class Tools {
     }
 
     /**
-     * Translate a {@link RuntimeException} to a {@link DataAccessException}
+     * Translate a {@link RuntimeException} to a {@link DataAccessException}.
+     *
+     * <p>Exceptions that are already {@link DataAccessException} or are internal
+     * {@link ControlFlowSignal}s are returned as-is.  Any other
+     * {@link RuntimeException} (e.g. a driver-level {@code VertxException}) is
+     * wrapped so that callers can rely on a uniform {@link DataAccessException}
+     * contract.
      */
     static final RuntimeException translate(Scope scope, String sql, RuntimeException e) {
-        if (e != null)
+        if (e == null)
+            return new DataAccessException("SQL [" + sql + "]; Unspecified RuntimeException");
+        else if (e instanceof DataAccessException || e instanceof ControlFlowSignal)
             return e;
         else
-            return new DataAccessException("SQL [" + sql + "]; Unspecified RuntimeException");
+            return new DataAccessException("SQL [" + sql + "]; " + e.getMessage(), e);
     }
 
     /**

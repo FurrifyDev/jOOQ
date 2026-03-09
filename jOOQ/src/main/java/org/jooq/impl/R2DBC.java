@@ -385,7 +385,10 @@ final class R2DBC {
         private void fireListenerException(Throwable t) {
             QueryExecutionSubscriber<?,?> qes = qes();
             if (qes != null && qes.execCtx != null) {
-                RuntimeException re = t instanceof RuntimeException r ? r : new RuntimeException(t);
+                // Translate the raw driver exception (e.g. VertxException) to a
+                // DataAccessException so that the ExecuteListener sees the same
+                // exception type as the downstream subscriber.
+                RuntimeException re = translate(downstream.configuration.dsl(), downstream.sql(), t);
                 qes.execCtx.exception(re);
                 qes.execListener.exception(qes.execCtx);
             }

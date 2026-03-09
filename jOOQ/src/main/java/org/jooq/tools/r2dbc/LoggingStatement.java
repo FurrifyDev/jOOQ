@@ -106,8 +106,8 @@ public class LoggingStatement extends DefaultStatement {
     @Override
     public Publisher<? extends Result> execute() {
         return s -> {
-            if (log.isDebugEnabled())
-                log.debug("Statement::execute");
+            if (log.isTraceEnabled())
+                log.trace("Statement::execute");
 
             getDelegate().execute().subscribe(s);
         };

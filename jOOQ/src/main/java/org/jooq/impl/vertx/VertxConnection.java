@@ -13,23 +13,16 @@
  */
 package org.jooq.impl.vertx;
 
-import java.time.Duration;
-import java.util.concurrent.atomic.AtomicReference;
-
-import org.jetbrains.annotations.NotNull;
-import org.reactivestreams.Publisher;
-
-import io.r2dbc.spi.Batch;
-import io.r2dbc.spi.Connection;
-import io.r2dbc.spi.ConnectionMetadata;
-import io.r2dbc.spi.IsolationLevel;
-import io.r2dbc.spi.Statement;
-import io.r2dbc.spi.TransactionDefinition;
-import io.r2dbc.spi.ValidationDepth;
+import io.r2dbc.spi.*;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
+import org.jetbrains.annotations.NotNull;
+import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
+
+import java.time.Duration;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Implements the R2DBC {@link Connection} interface backed by a Vert.x
@@ -88,6 +81,11 @@ final class VertxConnection implements Connection {
 
     @Override
     public @NotNull Publisher<Void> beginTransaction(@NotNull TransactionDefinition definition) {
+        IsolationLevel level = definition.getAttribute(TransactionDefinition.ISOLATION_LEVEL);
+        if (level != null && level != getTransactionIsolationLevel()) {
+            return acquireAndBegin().then(Mono.from(setTransactionIsolationLevel(level)));
+        }
+
         return acquireAndBegin();
     }
 

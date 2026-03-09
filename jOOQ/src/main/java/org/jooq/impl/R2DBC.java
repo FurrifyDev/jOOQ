@@ -60,7 +60,6 @@ import static org.jooq.tools.StringUtils.defaultIfNull;
 import static org.jooq.tools.jdbc.JDBCUtils.safeClose;
 
 import java.math.BigDecimal;
-import java.nio.ByteBuffer;
 import java.sql.Array;
 import java.sql.Date;
 import java.sql.ResultSetMetaData;
@@ -91,6 +90,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Configuration;
 import org.jooq.Converter;
 import org.jooq.Cursor;
@@ -121,7 +121,6 @@ import org.jooq.impl.DefaultConnectionFactory.NonClosingConnection;
 import org.jooq.impl.DefaultRenderContext.Rendered;
 import org.jooq.impl.ThreadGuard.Guard;
 import org.jooq.tools.JooqLogger;
-import org.jooq.tools.StopWatch;
 import org.jooq.tools.jdbc.DefaultPreparedStatement;
 import org.jooq.tools.jdbc.DefaultResultSet;
 import org.jooq.tools.jdbc.MockArray;
@@ -999,26 +998,24 @@ final class R2DBC {
                     ));
                 }
 
-                private final TransactionDefinition transactionDefinition() {
+                private TransactionDefinition transactionDefinition() {
                     return new TransactionDefinition() {
-
                         @SuppressWarnings("unchecked")
                         @Override
-                        public <T> T getAttribute(Option<T> option) {
+                        public <V> V getAttribute(@NotNull Option<V> option) {
                             Set<TransactionProperty> p = TransactionSubscription.this.properties;
 
                             if (TransactionDefinition.READ_ONLY.equals(option)) {
-                                return (T) (Boolean) p.contains(Readonly.READONLY);
-                            }
-                            else if (TransactionDefinition.ISOLATION_LEVEL.equals(option)) {
+                                return (V) (Boolean) p.contains(Readonly.READONLY);
+                            } else if (TransactionDefinition.ISOLATION_LEVEL.equals(option)) {
                                 if (p.contains(Isolation.READ_COMMITTED))
-                                    return (T) IsolationLevel.READ_COMMITTED;
+                                    return (V) IsolationLevel.READ_COMMITTED;
                                 else if (p.contains(Isolation.READ_UNCOMMITTED))
-                                    return (T) IsolationLevel.READ_UNCOMMITTED;
+                                    return (V) IsolationLevel.READ_UNCOMMITTED;
                                 else if (p.contains(Isolation.REPEATABLE_READ))
-                                    return (T) IsolationLevel.REPEATABLE_READ;
+                                    return (V) IsolationLevel.REPEATABLE_READ;
                                 else if (p.contains(Isolation.SERIALIZABLE))
-                                    return (T) IsolationLevel.SERIALIZABLE;
+                                    return (V) IsolationLevel.SERIALIZABLE;
                             }
 
                             return null;

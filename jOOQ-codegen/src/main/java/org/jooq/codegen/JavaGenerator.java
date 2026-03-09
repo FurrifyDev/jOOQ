@@ -7801,8 +7801,9 @@ public class JavaGenerator extends AbstractGenerator {
                             columnVisibility, override ? "override " : "", scalaWhitespaceSuffix(columnId), TableField.class, recordType, columnType, DSL.class, escapeString(columnName), columnTypeRef, escapeString(comment(column)), converter, binding, generator);
                 }
                 else if (kotlin) {
-                    out.println("%s%sval %s: %s<%s, %s?> = createField(%s.name(\"%s\"), %s, this, \"%s\"" + converterTemplate(converter) + converterTemplate(binding) + converterTemplate(generator) + ")",
-                        columnVisibility, override ? "override " : "", columnId, TableField.class, recordType, columnType, DSL.class, escapeString(columnName), columnTypeRef, escapeString(comment(column)), converter, binding, generator);
+                    String tableFieldNullability = generateKotlinNotNullTableAttributes() && !columnTypeDef.isNullable() ? "" : "?";
+                    out.println("%s%sval %s: %s<%s, %s%s> = createField(%s.name(\"%s\"), %s, this, \"%s\"" + converterTemplate(converter) + converterTemplate(binding) + converterTemplate(generator) + ")",
+                        columnVisibility, override ? "override " : "", columnId, TableField.class, recordType, columnType, tableFieldNullability, DSL.class, escapeString(columnName), columnTypeRef, escapeString(comment(column)), converter, binding, generator);
                 }
                 else {
                     String isStatic = generateInstanceFields() ? "" : "static ";
@@ -12192,7 +12193,7 @@ public class JavaGenerator extends AbstractGenerator {
             if (scala)
                 type = "scala.Array[" + baseType + "]";
             else if (kotlin)
-                type = "kotlin.Array<" + baseType + "?>";
+                type = "kotlin.Array<" + baseType + (generateKotlinNotNullArrayElements() ? "" : "?") + ">";
             else
                 type = baseType + "[]";
         }

@@ -2378,7 +2378,7 @@ This feature is available in the commercial distribution only.]]></jxb:javadoc><
         </annotation>
       </element>
 
-      <element name="jsonConverterImplementation" type="tns:JSONConverterImplementation" minOccurs="0" maxOccurs="1" fixed="true">
+      <element name="jsonConverterImplementation" type="tns:JSONConverterImplementation" minOccurs="0" maxOccurs="1">
         <annotation>
           <appinfo>
             <jxb:property>
@@ -3108,6 +3108,14 @@ Whitespace is ignored and comments are possible unless overridden in {@link #get
       
       <element name="kotlinNotNullInterfaceAttributes" type="boolean" default="false" minOccurs="0" maxOccurs="1">
         <annotation><appinfo><jxb:property><jxb:javadoc><![CDATA[Generate non-nullable types on interface attributes, where column is not null.]]></jxb:javadoc></jxb:property></appinfo></annotation>
+      </element>
+      
+      <element name="kotlinNotNullTableAttributes" type="boolean" default="false" minOccurs="0" maxOccurs="1">
+        <annotation><appinfo><jxb:property><jxb:javadoc><![CDATA[Generate non-nullable types on TableField attributes (the second type parameter of {@code TableField<R, T>}), where column is not null.]]></jxb:javadoc></jxb:property></appinfo></annotation>
+      </element>
+      
+      <element name="kotlinNotNullArrayElements" type="boolean" default="false" minOccurs="0" maxOccurs="1">
+        <annotation><appinfo><jxb:property><jxb:javadoc><![CDATA[Generate non-nullable element types inside Kotlin array columns (e.g. {@code Array<String>} instead of {@code Array<String?>}). Since databases do not store per-element nullability in schema metadata, this is a policy flag. Enable it when array elements are guaranteed non-null.]]></jxb:javadoc></jxb:property></appinfo></annotation>
       </element>
       
       <element name="kotlinDefaultedNullablePojoAttributes" type="boolean" default="true" minOccurs="0" maxOccurs="1">

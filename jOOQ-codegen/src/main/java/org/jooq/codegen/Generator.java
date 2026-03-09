@@ -943,6 +943,37 @@ public interface Generator {
     void setGenerateKotlinNotNullInterfaceAttributes(boolean generateKotlinNotNullInterfaceAttributes);
 
     /**
+     * Generate non-nullable types on Table field attributes (the second type parameter of
+     * {@code TableField<R, T>}), where the column is not null.
+     * <p>
+     * When enabled, a {@code NOT NULL} column produces {@code TableField<R, T>} instead of
+     * the default {@code TableField<R, T?>}, giving the Kotlin compiler full null-safety on
+     * table field access without wrapper classes.
+     */
+    boolean generateKotlinNotNullTableAttributes();
+
+    /**
+     * Generate non-nullable types on Table field attributes (the second type parameter of
+     * {@code TableField<R, T>}), where the column is not null.
+     */
+    void setGenerateKotlinNotNullTableAttributes(boolean generateKotlinNotNullTableAttributes);
+
+    /**
+     * Generate non-nullable element types inside Kotlin array columns (e.g. {@code Array<String>}
+     * instead of {@code Array<String?>}).
+     * <p>
+     * PostgreSQL (and most databases) do not store per-element nullability in schema metadata, so
+     * this is a policy decision. When enabled, array element types are assumed to be non-null,
+     * which is the common case. Disable if your arrays intentionally contain {@code NULL} elements.
+     */
+    boolean generateKotlinNotNullArrayElements();
+
+    /**
+     * Generate non-nullable element types inside Kotlin array columns.
+     */
+    void setGenerateKotlinNotNullArrayElements(boolean generateKotlinNotNullArrayElements);
+
+    /**
      * Generate defaulted nullable POJO attributes.
      */
     boolean generateKotlinDefaultedNullablePojoAttributes();

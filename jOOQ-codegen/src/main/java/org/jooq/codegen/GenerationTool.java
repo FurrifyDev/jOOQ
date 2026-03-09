@@ -913,6 +913,10 @@ public class GenerationTool {
                 generator.setGenerateKotlinNotNullRecordAttributes(g.getGenerate().isKotlinNotNullRecordAttributes());
             if (g.getGenerate().isKotlinNotNullInterfaceAttributes() != null)
                 generator.setGenerateKotlinNotNullInterfaceAttributes(g.getGenerate().isKotlinNotNullInterfaceAttributes());
+            if (g.getGenerate().isKotlinNotNullTableAttributes() != null)
+                generator.setGenerateKotlinNotNullTableAttributes(g.getGenerate().isKotlinNotNullTableAttributes());
+            if (g.getGenerate().isKotlinNotNullArrayElements() != null)
+                generator.setGenerateKotlinNotNullArrayElements(g.getGenerate().isKotlinNotNullArrayElements());
             if (g.getGenerate().isKotlinDefaultedNullablePojoAttributes() != null)
                 generator.setGenerateKotlinDefaultedNullablePojoAttributes(g.getGenerate().isKotlinDefaultedNullablePojoAttributes());
             if (g.getGenerate().isKotlinDefaultedNullableRecordAttributes() != null)

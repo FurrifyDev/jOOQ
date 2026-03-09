@@ -148,6 +148,8 @@ abstract class AbstractGenerator implements Generator {
     boolean                            generateKotlinNotNullPojoAttributes                   = false;
     boolean                            generateKotlinNotNullRecordAttributes                 = false;
     boolean                            generateKotlinNotNullInterfaceAttributes              = false;
+    boolean                            generateKotlinNotNullTableAttributes                  = false;
+    boolean                            generateKotlinNotNullArrayElements                    = false;
     boolean                            generateKotlinDefaultedNullablePojoAttributes         = true;
     boolean                            generateKotlinDefaultedNullableRecordAttributes       = true;
     GeneratedSerialVersionUID          generatedSerialVersionUID                             = GeneratedSerialVersionUID.CONSTANT;
@@ -1083,6 +1085,26 @@ abstract class AbstractGenerator implements Generator {
     @Override
     public void setGenerateKotlinNotNullInterfaceAttributes(boolean generateKotlinNotNullInterfaceAttributes) {
         this.generateKotlinNotNullInterfaceAttributes = generateKotlinNotNullInterfaceAttributes;
+    }
+
+    @Override
+    public boolean generateKotlinNotNullTableAttributes() {
+        return generateKotlinNotNullTableAttributes;
+    }
+
+    @Override
+    public void setGenerateKotlinNotNullTableAttributes(boolean generateKotlinNotNullTableAttributes) {
+        this.generateKotlinNotNullTableAttributes = generateKotlinNotNullTableAttributes;
+    }
+
+    @Override
+    public boolean generateKotlinNotNullArrayElements() {
+        return generateKotlinNotNullArrayElements;
+    }
+
+    @Override
+    public void setGenerateKotlinNotNullArrayElements(boolean generateKotlinNotNullArrayElements) {
+        this.generateKotlinNotNullArrayElements = generateKotlinNotNullArrayElements;
     }
 
     @Override

@@ -182,6 +182,10 @@ public class Generate implements Serializable, XMLAppendable
     protected Boolean kotlinNotNullRecordAttributes = false;
     @XmlElement(defaultValue = "false")
     protected Boolean kotlinNotNullInterfaceAttributes = false;
+    @XmlElement(defaultValue = "false")
+    protected Boolean kotlinNotNullTableAttributes = false;
+    @XmlElement(defaultValue = "false")
+    protected Boolean kotlinNotNullArrayElements = false;
     @XmlElement(defaultValue = "true")
     protected Boolean kotlinDefaultedNullablePojoAttributes = true;
     @XmlElement(defaultValue = "true")
@@ -2121,6 +2125,60 @@ public class Generate implements Serializable, XMLAppendable
      */
     public void setKotlinNotNullInterfaceAttributes(Boolean value) {
         this.kotlinNotNullInterfaceAttributes = value;
+    }
+
+    /**
+     * Generate non-nullable types on Table field attributes (the second type parameter of {@code TableField<R, T>}),
+     * where the column is not null. When enabled, {@code NOT NULL} columns produce {@code TableField<R, T>}
+     * instead of {@code TableField<R, T?>}.
+     *
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *
+     */
+    public Boolean isKotlinNotNullTableAttributes() {
+        return kotlinNotNullTableAttributes;
+    }
+
+    /**
+     * Generate non-nullable types on Table field attributes (the second type parameter of {@code TableField<R, T>}),
+     * where the column is not null. When enabled, {@code NOT NULL} columns produce {@code TableField<R, T>}
+     * instead of {@code TableField<R, T?>}.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *
+     */
+    public void setKotlinNotNullTableAttributes(Boolean value) {
+        this.kotlinNotNullTableAttributes = value;
+    }
+
+    /**
+     * Generate non-nullable element types inside Kotlin array columns (e.g. {@code Array<String>}
+     * instead of {@code Array<String?>}). Since databases do not store per-element nullability in
+     * schema metadata, this is a policy flag. Enable it when array elements are guaranteed non-null.
+     *
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *
+     */
+    public Boolean isKotlinNotNullArrayElements() {
+        return kotlinNotNullArrayElements;
+    }
+
+    /**
+     * Generate non-nullable element types inside Kotlin array columns.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *
+     */
+    public void setKotlinNotNullArrayElements(Boolean value) {
+        this.kotlinNotNullArrayElements = value;
     }
 
     /**
@@ -4381,6 +4439,24 @@ public class Generate implements Serializable, XMLAppendable
     }
 
     /**
+     * Generate non-nullable types on Table field attributes (TableField second type param), where column is not null.
+     *
+     */
+    public Generate withKotlinNotNullTableAttributes(Boolean value) {
+        setKotlinNotNullTableAttributes(value);
+        return this;
+    }
+
+    /**
+     * Generate non-nullable element types inside Kotlin array columns.
+     *
+     */
+    public Generate withKotlinNotNullArrayElements(Boolean value) {
+        setKotlinNotNullArrayElements(value);
+        return this;
+    }
+
+    /**
      * Generate defaulted nullable POJO attributes.
      * 
      */
@@ -5057,6 +5133,8 @@ public class Generate implements Serializable, XMLAppendable
         builder.append("kotlinNotNullPojoAttributes", kotlinNotNullPojoAttributes);
         builder.append("kotlinNotNullRecordAttributes", kotlinNotNullRecordAttributes);
         builder.append("kotlinNotNullInterfaceAttributes", kotlinNotNullInterfaceAttributes);
+        builder.append("kotlinNotNullTableAttributes", kotlinNotNullTableAttributes);
+        builder.append("kotlinNotNullArrayElements", kotlinNotNullArrayElements);
         builder.append("kotlinDefaultedNullablePojoAttributes", kotlinDefaultedNullablePojoAttributes);
         builder.append("kotlinDefaultedNullableRecordAttributes", kotlinDefaultedNullableRecordAttributes);
         builder.append("globalObjectNames", globalObjectNames);
@@ -5807,6 +5885,24 @@ public class Generate implements Serializable, XMLAppendable
                 return false;
             }
         }
+        if (kotlinNotNullTableAttributes == null) {
+            if (other.kotlinNotNullTableAttributes!= null) {
+                return false;
+            }
+        } else {
+            if (!kotlinNotNullTableAttributes.equals(other.kotlinNotNullTableAttributes)) {
+                return false;
+            }
+        }
+        if (kotlinNotNullArrayElements == null) {
+            if (other.kotlinNotNullArrayElements!= null) {
+                return false;
+            }
+        } else {
+            if (!kotlinNotNullArrayElements.equals(other.kotlinNotNullArrayElements)) {
+                return false;
+            }
+        }
         if (kotlinDefaultedNullablePojoAttributes == null) {
             if (other.kotlinDefaultedNullablePojoAttributes!= null) {
                 return false;
@@ -6455,6 +6551,8 @@ public class Generate implements Serializable, XMLAppendable
         result = ((prime*result)+((kotlinNotNullPojoAttributes == null)? 0 :kotlinNotNullPojoAttributes.hashCode()));
         result = ((prime*result)+((kotlinNotNullRecordAttributes == null)? 0 :kotlinNotNullRecordAttributes.hashCode()));
         result = ((prime*result)+((kotlinNotNullInterfaceAttributes == null)? 0 :kotlinNotNullInterfaceAttributes.hashCode()));
+        result = ((prime*result)+((kotlinNotNullTableAttributes == null)? 0 :kotlinNotNullTableAttributes.hashCode()));
+        result = ((prime*result)+((kotlinNotNullArrayElements == null)? 0 :kotlinNotNullArrayElements.hashCode()));
         result = ((prime*result)+((kotlinDefaultedNullablePojoAttributes == null)? 0 :kotlinDefaultedNullablePojoAttributes.hashCode()));
         result = ((prime*result)+((kotlinDefaultedNullableRecordAttributes == null)? 0 :kotlinDefaultedNullableRecordAttributes.hashCode()));
         result = ((prime*result)+((globalObjectNames == null)? 0 :globalObjectNames.hashCode()));

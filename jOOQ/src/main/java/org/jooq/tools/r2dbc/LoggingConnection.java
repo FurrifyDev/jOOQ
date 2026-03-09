@@ -37,18 +37,11 @@
  */
 package org.jooq.tools.r2dbc;
 
-import java.time.Duration;
-
+import io.r2dbc.spi.*;
 import org.jooq.tools.JooqLogger;
-
 import org.reactivestreams.Publisher;
 
-import io.r2dbc.spi.Batch;
-import io.r2dbc.spi.Connection;
-import io.r2dbc.spi.IsolationLevel;
-import io.r2dbc.spi.Statement;
-import io.r2dbc.spi.TransactionDefinition;
-import io.r2dbc.spi.ValidationDepth;
+import java.time.Duration;
 
 /**
  * An R2DBC {@link Connection} proxy that logs all statements that are prepared

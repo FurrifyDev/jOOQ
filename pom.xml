@@ -30,7 +30,7 @@
     </distributionManagement>
 
     <properties>
-        <revision>3.21.2-SNAPSHOT</revision>
+        <revision>3.21.0-SNAPSHOT</revision>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -70,6 +70,7 @@
         <!-- Kotlin versions -->
         <kotlin.version>2.3.10</kotlin.version>
         <kotlinx.coroutines.version>1.10.2</kotlinx.coroutines.version>
+        <kotlinx.cserialization.json>1.10.0</kotlinx.cserialization.json>
 
         <!-- DefaultRecordMapper and jOOQ-meta-extensions can read JPA annotations -->
         <jakarta.persistence-api.version>3.0.0</jakarta.persistence-api.version>
@@ -161,6 +162,11 @@
             <dependency>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-jackson3-extensions</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-kotlinx-serialization</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -311,6 +317,11 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-stdlib-jdk8</artifactId>
                 <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-serialization-json</artifactId>
+                <version>${kotlinx.cserialization.json}</version>
             </dependency>
 
             <!-- Needed for mapping into Kotlin data classes -->
@@ -892,6 +903,7 @@
 
         <module>jOOQ-kotlin</module>
         <module>jOOQ-kotlin-coroutines</module>
+        <module>jOOQ-kotlinx-serialization</module>
         <module>jOOQ-scala_3.5</module>
 
 
@@ -935,22 +947,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
-
-        <!--        <profile>-->
-        <!--            <id>deploy</id>-->
-        <!--            <properties>-->
-        <!--                <maven.deploy.skip>true</maven.deploy.skip>-->
-        <!--            </properties>-->
-        <!--            <modules>-->
-        <!--                <module>jOOQ</module>-->
-        <!--                <module>jOOQ-meta</module>-->
-        <!--                <module>jOOQ-codegen</module>-->
-        <!--                <module>jOOQ-kotlin</module>-->
-        <!--                <module>jOOQ-kotlin-coroutines</module>-->
-        <!--                <module>jOOQ-postgres-extensions</module>-->
-        <!--            </modules>-->
-        <!--        </profile>-->
-
 
     </profiles>
 </project>

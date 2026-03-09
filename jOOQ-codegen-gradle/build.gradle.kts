@@ -1,23 +1,35 @@
-import org.gradle.kotlin.dsl.groovy
-
 plugins {
     id("java")
     id("groovy")
-    id("com.gradle.plugin-publish") version "1.2.0"
+    id("com.gradle.plugin-publish") version "2.1.0"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
+
+group = "org.jooq"
+version = "3.21.0-SNAPSHOT"
 
 repositories {
     mavenLocal()
     mavenCentral()
 }
 
-group = "org.jooq"
-version = "3.21.0-SNAPSHOT"
+publishing {
+    repositories {
+        maven {
+            val releasesRepoUrl = uri("https://repo.snepdragon.net/releases")
+            val snapshotsRepoUrl = uri("https://repo.snepdragon.net/snapshots")
+
+            name = "snepdragon"
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+
+            credentials(PasswordCredentials::class)
+        }
+    }
+}
 
 dependencies {
     implementation(gradleApi())
@@ -38,6 +50,7 @@ gradlePlugin {
             description = "jOOQ code generation plugin for Gradle"
             tags.set(listOf("jooq"))
             implementationClass = "org.jooq.codegen.gradle.CodegenPlugin"
+            version = project.version.toString()
         }
     }
 }

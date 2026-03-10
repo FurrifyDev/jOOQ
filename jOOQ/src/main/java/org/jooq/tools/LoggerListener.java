@@ -49,6 +49,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
+import java.util.stream.IntStream;
 
 import org.jooq.Configuration;
 import org.jooq.ExecuteContext;
@@ -63,6 +64,7 @@ import org.jooq.Result;
 import org.jooq.Routine;
 import org.jooq.VisitContext;
 import org.jooq.VisitListener;
+import org.jooq.conf.ParamType;
 import org.jooq.impl.DSL;
 
 /**
@@ -73,10 +75,10 @@ import org.jooq.impl.DSL;
  */
 public class LoggerListener implements ExecuteListener {
 
-    private static final JooqLogger log        = JooqLogger.getLogger(LoggerListener.class);
-    private static final String     BUFFER     = "org.jooq.tools.LoggerListener.BUFFER";
-    private static final String     DO_BUFFER  = "org.jooq.tools.LoggerListener.DO_BUFFER";
-    private static final String     BATCH_SIZE = "org.jooq.tools.LoggerListener.BATCH_SIZE";
+    private static final JooqLogger log = JooqLogger.getLogger(LoggerListener.class);
+    private static final String BUFFER = "org.jooq.tools.LoggerListener.BUFFER";
+    private static final String DO_BUFFER = "org.jooq.tools.LoggerListener.DO_BUFFER";
+    private static final String BATCH_SIZE = "org.jooq.tools.LoggerListener.BATCH_SIZE";
 
     @Override
     public void renderEnd(ExecuteContext ctx) {
@@ -88,16 +90,22 @@ public class LoggerListener implements ExecuteListener {
             if (!log.isTraceEnabled())
                 configuration = configuration.deriveAppending(new BindValueAbbreviator());
 
-            if (ctx.query() != null) {
-
+            final var query = ctx.query();
+            if (query != null) {
                 // Actual SQL passed to JDBC
                 log.debug("Executing query", newline + ctx.sql());
 
                 // [#1278] DEBUG log also SQL with inlined bind values, if
                 // that is not the same as the actual SQL passed to JDBC
-                String inlined = DSL.using(configuration).renderInlined(ctx.query());
-                if (log.isTraceEnabled() && !Objects.equals(ctx.sql(), inlined))
-                    log.trace("-> with bind values", newline + inlined);
+                if (!Objects.equals(ctx.settings().getParamType(), ParamType.INLINED)) {
+                    final var bindings = query.getBindValues();
+                    log.debug(
+                            "-> with bind values",
+                            newline + IntStream.range(0, bindings.size())
+                                    .mapToObj(i -> "$" + (i + 1) + "=" + bindings.get(i))
+                                    .toList()
+                    );
+                }
             }
 
             // [#2987] Log routines
@@ -105,13 +113,11 @@ public class LoggerListener implements ExecuteListener {
                 log.debug("Calling routine", newline + ctx.sql());
 
                 String inlined = DSL.using(configuration)
-                                    .renderInlined(ctx.routine());
+                        .renderInlined(ctx.routine());
 
                 if (log.isTraceEnabled() && !Objects.equals(ctx.sql(), inlined))
                     log.trace("-> with bind values", newline + inlined);
-            }
-
-            else if (!StringUtils.isBlank(ctx.sql())) {
+            } else if (!StringUtils.isBlank(ctx.sql())) {
 
                 // [#1529] Batch queries should be logged specially
                 if (ctx.type() == ExecuteType.BATCH)
@@ -239,7 +245,7 @@ public class LoggerListener implements ExecuteListener {
             log.debug("Exception", ctx.exception());
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private Record record(Configuration configuration, Routine<?> routine) {
         Record result = null;
 
@@ -271,8 +277,7 @@ public class LoggerListener implements ExecuteListener {
         for (String line : message.split("\n")) {
             if (level == Level.FINE) {
                 log.debug(comment, line);
-            }
-            else {
+            } else {
                 log.trace(comment, line);
             }
 
@@ -297,8 +302,7 @@ public class LoggerListener implements ExecuteListener {
                     if (value instanceof String && ((String) value).length() > maxLength) {
                         anyAbbreviations = true;
                         context.queryPart(val(abbreviate((String) value, maxLength)));
-                    }
-                    else if (value instanceof byte[] && ((byte[]) value).length > maxLength) {
+                    } else if (value instanceof byte[] && ((byte[]) value).length > maxLength) {
                         anyAbbreviations = true;
                         context.queryPart(val(Arrays.copyOf((byte[]) value, maxLength)));
                     }

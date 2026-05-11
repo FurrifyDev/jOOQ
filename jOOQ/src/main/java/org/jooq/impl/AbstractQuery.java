@@ -66,6 +66,7 @@ import static org.jooq.impl.Tools.BooleanDataKey.DATA_FORCE_STATIC_STATEMENT;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
@@ -317,7 +318,7 @@ abstract class AbstractQuery<R extends Record> extends AbstractAttachableQueryPa
 
                     // [#7106] In some SQL dialects, starting a transaction requires JDBC interaction
                     if (this instanceof StartTransaction && SET_AUTOCOMMIT_ON_START_TRANSACTION.contains(ctx.dialect()))
-                        ctx.connection().setAutoCommit(false);
+                        DefaultExecuteContext.connection(ctx).setAutoCommit(false);
 
                     listener.prepareStart(ctx);
                     prepare(ctx);
@@ -393,7 +394,7 @@ abstract class AbstractQuery<R extends Record> extends AbstractAttachableQueryPa
     }
 
     static final Connection connection(DefaultExecuteContext ctx) {
-        Connection result = ctx.connection();
+        Connection result = DefaultExecuteContext.connection(ctx);
 
         // [#3234] Defer initialising of a connection until the prepare step
         // This optimises unnecessary ConnectionProvider.acquire() calls when
@@ -446,7 +447,7 @@ abstract class AbstractQuery<R extends Record> extends AbstractAttachableQueryPa
      */
     protected void prepare(ExecuteContext ctx) throws SQLException {
         if (ctx.statement() == null)
-            ctx.statement(ctx.connection().prepareStatement(ctx.sql()));
+            ctx.statement(DefaultExecuteContext.connection(ctx).prepareStatement(ctx.sql()));
     }
 
     /**
@@ -479,6 +480,21 @@ abstract class AbstractQuery<R extends Record> extends AbstractAttachableQueryPa
                     : stmt.getUpdateCount();
                 ctx.rowsLarge(result);
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

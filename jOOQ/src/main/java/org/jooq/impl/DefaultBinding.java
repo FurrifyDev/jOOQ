@@ -59,7 +59,6 @@ import static org.jooq.JSONB.jsonb;
 // ...
 // ...
 // ...
-// ...
 import static org.jooq.SQLDialect.CLICKHOUSE;
 // ...
 import static org.jooq.SQLDialect.CUBRID;
@@ -100,7 +99,6 @@ import static org.jooq.conf.ParamType.INLINED;
 import static org.jooq.impl.Array.NO_SUPPORT_SQUARE_BRACKETS;
 import static org.jooq.impl.BlobBinding.readBlob;
 import static org.jooq.impl.Convert.convert;
-import static org.jooq.impl.Convert.patchIso8601Timestamp;
 import static org.jooq.impl.DSL.array;
 import static org.jooq.impl.DSL.cast;
 import static org.jooq.impl.DSL.field;
@@ -124,6 +122,8 @@ import static org.jooq.impl.DefaultBinding.DefaultResultBinding.readMultisetJSON
 import static org.jooq.impl.DefaultBinding.DefaultResultBinding.readMultisetXML;
 import static org.jooq.impl.DefaultBinding.DefaultStringBinding.autoRtrim;
 import static org.jooq.impl.DefaultDataType.getDataType;
+import static org.jooq.impl.DefaultDataType.requiredTimePrecision;
+import static org.jooq.impl.DefaultDataType.requiresTimePrecision;
 import static org.jooq.impl.DefaultDataType.unsupportedDatetimePrecision;
 import static org.jooq.impl.DefaultExecuteContext.localExecuteContext;
 import static org.jooq.impl.DefaultExecuteContext.localTargetConnection;
@@ -152,11 +152,11 @@ import static org.jooq.impl.Keywords.K_TIME_WITH_TIME_ZONE;
 import static org.jooq.impl.Keywords.K_TRUE;
 import static org.jooq.impl.Keywords.K_YEAR_TO_DAY;
 import static org.jooq.impl.Keywords.K_YEAR_TO_FRACTION;
+import static org.jooq.impl.Names.N_BIGNUMERIC;
 import static org.jooq.impl.Names.N_BYTEA;
 import static org.jooq.impl.Names.N_CAST;
 import static org.jooq.impl.Names.N_CREATEXML;
 import static org.jooq.impl.Names.N_HEX;
-import static org.jooq.impl.Names.N_JSON;
 import static org.jooq.impl.Names.N_JSON_EXTRACT;
 import static org.jooq.impl.Names.N_JSON_PARSE;
 import static org.jooq.impl.Names.N_NUMERIC;
@@ -336,10 +336,6 @@ import org.jooq.tools.StringUtils;
 import org.jooq.tools.jdbc.JDBCUtils;
 import org.jooq.tools.jdbc.MockArray;
 import org.jooq.tools.jdbc.MockResultSet;
-import org.jooq.tools.json.JSONArray;
-import org.jooq.tools.json.JSONObject;
-import org.jooq.tools.json.JSONParser;
-import org.jooq.tools.json.JSONValue;
 import org.jooq.types.DayToSecond;
 import org.jooq.types.UByte;
 import org.jooq.types.UInteger;
@@ -464,15 +460,7 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
                 c -> new DefaultTimestampBinding<>(TIMESTAMP, c)
             );
         else if (type == LocalTime.class)
-            return (Binding<T, U>) new DelegatingBinding<>(
-                (DataType<LocalTime>) dataType,
-                ContextConverter.ofNullable(Time.class, LocalTime.class,
-                    (BiFunction<Time, ConverterContext, LocalTime> & Serializable) (t, x) -> t.toLocalTime(),
-                    (BiFunction<LocalTime, ConverterContext, Time> & Serializable) (t, x) -> Time.valueOf(t)
-                ),
-                (ContextConverter<LocalTime, U>) converter,
-                c -> new DefaultTimeBinding<>(TIME, c)
-            );
+            return new DefaultLocalTimeBinding(dataType, converter);
         else if (type == Long.class || type == long.class)
             return new DefaultLongBinding(dataType, converter);
         else if (type == OffsetDateTime.class)
@@ -679,7 +667,7 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
             return Date.valueOf(date.split(" ")[0]).getTime();
 
         else if (type == Time.class)
-            return Time.valueOf(date).getTime();
+            return Convert.convert(date, type).getTime();
 
         throw new SQLException("Could not parse date " + date);
     }
@@ -945,6 +933,7 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
 
 
 
+
                     case CLICKHOUSE:
                     case HSQLDB:
                     case POSTGRES:
@@ -1125,8 +1114,12 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
                 );
 
             // [#17212] Avoid precision on datetime casts when not supported
-            else if (dataType.isDateTime() && unsupportedDatetimePrecision(ctx, dataType))
+            else if (dataType.isDateTime() && unsupportedDatetimePrecision(ctx.configuration(), dataType))
                 sqlCast(ctx, converted, dataType, null, null, null);
+
+            // [#19772] Make precision explicit where there would be truncation, otherwise
+            else if (dataType.isTime() && requiresTimePrecision(ctx.configuration(), converted, dataType))
+                sqlCast(ctx, converted, dataType, null, requiredTimePrecision(converted), null);
 
             // In all other cases, the bind variable can be cast normally
             else
@@ -2124,6 +2117,10 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
         @Override
         final void sqlInline0(BindingSQLContext<U> ctx, BigDecimal value) {
             switch (ctx.family()) {
+
+
+
+
 
 
 
@@ -3988,6 +3985,7 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
 
 
 
+
                 case FIREBIRD:
                 case HSQLDB:
                 case TRINO:
@@ -4468,6 +4466,8 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
 
 
 
+
+
                 // [#729] In the absence of the correct JDBC type, try setObject
                 default:
                     ctx.statement().setObject(ctx.index(), null);
@@ -4605,8 +4605,10 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
                 c -> {
                     if (ctx.family().category() == SQLDialectCategory.POSTGRES)
                         ctx.render().visit(inline(PostgresUtils.toPGString(value)));
+                    else if (value instanceof QualifiedRecord qr)
+                        ctx.render().visit(new QualifiedRecordConstant(qr, getRecordQualifier(dataType)));
                     else
-                        ctx.render().visit(new QualifiedRecordConstant((QualifiedRecord) value, getRecordQualifier(dataType)));
+                        ctx.render().visit(value.valuesRow());
                 },
                 c -> pgRenderRecordCast(ctx.render()),
                 false,
@@ -4742,17 +4744,66 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
                     s -> s != null && (s.startsWith("<")) ? "<result>" + s + "</result>" : null,
 
                     // [#18175] H2 uses nested ResultSet values instead of Struct to model ROW expressions
-                    s -> s instanceof ResultSet rs
-                         ? asList(rs)
-                         : s instanceof Struct x
-                         ? asList(x)
-                         : s instanceof List<?> l
-                         ? asList(l)
-                         : null
+                    s -> {
+                        switch (ctx.family()) {
+
+
+
+
+
+                            default:
+                                return s instanceof ResultSet rs
+                                    ? asList(rs)
+                                    : s instanceof Struct x
+                                    ? asList(x)
+                                    : s instanceof List<?> l
+                                    ? asList(l)
+                                    : null;
+                        }
+                    }
                 );
 
             return isEmpty(result) ? null : result.get(0);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         @Override
         final int sqltype(Statement statement, Configuration configuration) {
@@ -4823,22 +4874,15 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
                 return converter.from((T) Short.valueOf(string), ctx.converterContext());
             else if (type == String.class)
                 return converter.from((T) string, ctx.converterContext());
-            else if (type == Time.class)
-                return converter.from((T) Time.valueOf(string), ctx.converterContext());
-            else if (type == Timestamp.class)
-                return converter.from((T) Timestamp.valueOf(patchIso8601Timestamp(string, false)), ctx.converterContext());
-            else if (type == LocalTime.class)
-                return converter.from((T) LocalTime.parse(string), ctx.converterContext());
-            else if (type == LocalDate.class)
-                return converter.from((T) LocalDate.parse(string), ctx.converterContext());
-            else if (type == LocalDateTime.class)
-                return converter.from((T) LocalDateTime.parse(patchIso8601Timestamp(string, true)), ctx.converterContext());
-            else if (type == OffsetTime.class)
-                return converter.from((T) OffsetDateTimeParser.offsetTime(string), ctx.converterContext());
-            else if (type == OffsetDateTime.class)
-                return converter.from((T) OffsetDateTimeParser.offsetDateTime(string), ctx.converterContext());
-            else if (type == Instant.class)
-                return converter.from((T) OffsetDateTimeParser.offsetDateTime(string).toInstant(), ctx.converterContext());
+            else if (type == Time.class
+                  || type == Timestamp.class
+                  || type == LocalTime.class
+                  || type == LocalDate.class
+                  || type == LocalDateTime.class
+                  || type == OffsetTime.class
+                  || type == OffsetDateTime.class
+                  || type == Instant.class)
+                return converter.from((T) new AutoConverter<>(String.class, type).from(string, ctx.converterContext()), ctx.converterContext());
             else if (type == JSON.class)
                 return converter.from((T) JSON.json(string), ctx.converterContext());
             else if (type == JSONB.class)
@@ -4975,9 +5019,9 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
 
     static final class DefaultResultBinding<U> extends InternalBinding<org.jooq.Result<?>, U> {
 
-        static final JSONFormat          JSON_FORMAT_BASE64 = JSONFormat.DEFAULT_FOR_RECORDS.recordFormat(JSONFormat.RecordFormat.ARRAY).nanAsString(true).infinityAsString(true);
+        static final JSONFormat          JSON_FORMAT_BASE64 = JSONFormat.DEFAULT_FOR_RECORDS.recordFormat(JSONFormat.RecordFormat.ARRAY).valueFormat(JSONFormat.ValueFormat.FROM_TYPE).nanAsString(true).infinityAsString(true);
         static final JSONFormat          JSON_FORMAT_HEX    = JSON_FORMAT_BASE64.binaryFormat(JSONFormat.BinaryFormat.HEX);
-        static final XMLFormat           XML_FORMAT_BASE64  = XMLFormat.DEFAULT_FOR_RECORDS.recordFormat(XMLFormat.RecordFormat.COLUMN_NAME_ELEMENTS).nullFormat(NullFormat.XSI_NIL).arrayFormat(ArrayFormat.ELEMENTS);
+        static final XMLFormat           XML_FORMAT_BASE64  = XMLFormat.DEFAULT_FOR_RECORDS.recordFormat(XMLFormat.RecordFormat.COLUMN_NAME_ELEMENTS).nullFormat(NullFormat.XSI_NIL).arrayFormat(ArrayFormat.ELEMENTS).valueFormat(XMLFormat.ValueFormat.FROM_TYPE);
         static final XMLFormat           XML_FORMAT_HEX     = XML_FORMAT_BASE64.binaryFormat(XMLFormat.BinaryFormat.HEX);
 
         final DefaultXMLBinding<XML>     xmlBinding;
@@ -5092,18 +5136,30 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
 
         @SuppressWarnings("unchecked")
         static final <R extends Record> Result<R> readMultiset(BindingGetResultSetContext<?> ctx, DataType<Result<R>> type) throws SQLException {
+            AbstractRow<R> row = (AbstractRow<R>) type.getRow();
+
             return readMultiset(ctx,
-                (AbstractRow<R>) type.getRow(),
+                row,
                 (Class<R>) type.getRecordType(),
                 identity(),
                 identity(),
-                o -> o instanceof List<?> l
-                   ? l
-                   : o instanceof Object[] a
-                   ? asList(a)
-                   : o instanceof Array a
-                   ? asList((Object[]) a.getArray())
-                   : null
+                o -> {
+                    switch (ctx.family()) {
+
+
+
+
+
+                        default:
+                            return o instanceof List<?> l
+                               ? l
+                               : o instanceof Object[] a
+                               ? asList(a)
+                               : o instanceof Array a
+                               ? asList((Object[]) a.getArray())
+                               : null;
+                    }
+                }
             );
         }
 
@@ -5523,6 +5579,203 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
 
             else
                 return Types.NVARCHAR;
+        }
+    }
+
+    static final class DefaultLocalTimeBinding<U> extends InternalBinding<LocalTime, U> {
+
+        static final Set<SQLDialect>                NO_SUPPORT_LOCAL_TIME_BINDING = SQLDialect.supportedBy(DERBY);
+        final DelegatingBinding<LocalTime, Time, U> delegate;
+
+        DefaultLocalTimeBinding(DataType<LocalTime> dataType, Converter<LocalTime, U> converter) {
+            super(dataType, converter);
+
+            delegate = new DelegatingBinding<>(
+                (DataType<LocalTime>) dataType,
+                ContextConverter.ofNullable(Time.class, LocalTime.class,
+                    (BiFunction<Time, ConverterContext, LocalTime> & Serializable) (t, x) -> t.toLocalTime(),
+                    (BiFunction<LocalTime, ConverterContext, Time> & Serializable) (t, x) -> Time.valueOf(t)
+                ),
+                (ContextConverter<LocalTime, U>) converter,
+                c -> new DefaultTimeBinding<>(TIME, c)
+            );
+        }
+
+        @Override
+        final void setNull0(BindingSetStatementContext<U> ctx) throws SQLException {
+            if (delegate(ctx))
+                delegate.setNull0(ctx);
+            else
+                super.setNull0(ctx);
+        }
+
+        private final boolean delegate(Scope ctx) {
+            if (NO_SUPPORT_LOCAL_TIME_BINDING.contains(ctx.dialect()))
+                return true;
+            else
+                return FALSE.equals(ctx.configuration().settings().isBindLocalTimeType());
+        }
+
+        @Override
+        final void sqlInline0(BindingSQLContext<U> ctx, LocalTime value) throws SQLException {
+            if (delegate(ctx)) {
+                delegate.sqlInline0(ctx, value);
+                return;
+            }
+
+            Supplier<String> render = () -> escape(Convert.convert(value, String.class), ctx.render());
+
+            switch (ctx.family()) {
+                // The SQLite JDBC driver does not implement the escape syntax
+                // [#1253] Sybase does not implement time literals
+
+
+                case SQLITE:
+                    ctx.render().sql('\'').sql(render.get()).sql('\'');
+                    break;
+
+
+
+
+
+
+
+
+
+
+
+                // [#1253] Derby doesn't support the standard literal
+                case DERBY:
+                    ctx.render().visit(K_TIME).sql("('").sql(render.get()).sql("')");
+                    break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                default:
+
+
+
+
+
+
+
+
+
+                    // [#16498] Special cases where the standard datetime literal prefix needs to be omitted
+                    //          See: https://bugs.mysql.com/bug.php?id=114450
+                    if (ctx.data(DATA_OMIT_DATETIME_LITERAL_PREFIX) != null)
+                        ctx.render().sql('\'').sql(render.get()).sql('\'');
+
+                    // Most dialects implement SQL standard time literals
+                    else
+                        ctx.render().visit(K_TIME).sql(" '").sql(render.get()).sql('\'');
+
+                    break;
+            }
+        }
+
+        @Override
+        final void set0(BindingSetStatementContext<U> ctx, LocalTime value) throws SQLException {
+            if (delegate(ctx)) {
+                delegate.set0(ctx, value);
+                return;
+            }
+
+            switch (ctx.family()) {
+
+
+
+
+
+
+                case DUCKDB:
+
+                // [#17070] HSQLDB 2.7.2 has a time zone issue when binding LocalTime directly
+                case HSQLDB:
+                case SQLITE:
+                    ctx.statement().setString(ctx.index(), Convert.convert(value, String.class));
+                    break;
+
+                default:
+                    ctx.statement().setObject(ctx.index(), value);
+                    break;
+            }
+        }
+
+        @Override
+        final void set0(BindingSetSQLOutputContext<U> ctx, LocalTime value) throws SQLException {
+            if (delegate(ctx))
+                delegate.set0(ctx, value);
+            else
+                ctx.output().writeObject(value, JDBCType.TIME);
+        }
+
+        @Override
+        final LocalTime get0(BindingGetResultSetContext<U> ctx) throws SQLException {
+            if (delegate(ctx))
+                return delegate.get0(ctx);
+
+            switch (ctx.family()) {
+
+
+
+
+
+
+
+                // ResultSet.getTime() isn't implemented correctly, see: https://github.com/duckdb/duckdb/issues/10682
+                // SQLite's type affinity needs special care...
+                case DUCKDB:
+                case SQLITE:
+                    return Convert.convert(ctx.resultSet().getString(ctx.index()), LocalTime.class);
+
+                default:
+                    return ctx.resultSet().getObject(ctx.index(), LocalTime.class);
+            }
+        }
+
+        @Override
+        final LocalTime get0(BindingGetStatementContext<U> ctx) throws SQLException {
+            if (delegate(ctx))
+                return delegate.get0(ctx);
+            else
+                return ctx.statement().getObject(ctx.index(), LocalTime.class);
+        }
+
+        @Override
+        final LocalTime get0(BindingGetSQLInputContext<U> ctx) throws SQLException {
+            if (delegate(ctx))
+                return delegate.get0(ctx);
+            else
+                return ctx.input().readObject(LocalTime.class);
+        }
+
+        @Override
+        final int sqltype(Statement statement, Configuration configuration) throws SQLException {
+            if (delegate(configuration.dsl()))
+                return delegate.sqltype(statement, configuration);
+
+            switch (configuration.family()) {
+
+
+
+
+                default:
+                    return Types.TIME;
+            }
         }
     }
 
@@ -6608,8 +6861,36 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
 
     static final class DefaultJSONBinding<U> extends InternalBinding<org.jooq.JSON, U> {
 
+        static final Formatter FORMATTER = new Formatter() {
+
+            @Override
+            public void formatJSON(FormatterContext ctx) {
+                switch (ctx.family()) {
+                    case SQLITE:
+                        if (ctx.type().isJSON())
+                            ctx.field(new JSONFromText<>(ctx.field()));
+
+                        break;
+                }
+            }
+
+            @Override
+            public void formatJSONB(FormatterContext ctx) {
+                formatJSON(ctx);
+            }
+
+            @Override
+            public void formatXML(FormatterContext ctx) {
+            }
+        };
+
         DefaultJSONBinding(DataType<JSON> dataType, Converter<JSON, U> converter) {
             super(dataType, converter);
+        }
+
+        @Override
+        public final Formatter formatter() {
+            return FORMATTER;
         }
 
         @Override
@@ -6799,6 +7080,11 @@ public class DefaultBinding<T, U> implements Binding<T, U> {
 
         DefaultJSONBBinding(DataType<JSONB> dataType, Converter<JSONB, U> converter) {
             super(dataType, converter);
+        }
+
+        @Override
+        public final Formatter formatter() {
+            return DefaultJSONBinding.FORMATTER;
         }
 
         @Override

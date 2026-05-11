@@ -1013,7 +1013,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static WithAsStep with(String alias) {
+    public static WithAsStep with(@Stringly.Name String alias) {
         return new WithImpl(null, false).with(alias);
     }
 
@@ -1032,7 +1032,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static WithAsStep with(String alias, String... fieldAliases) {
+    public static WithAsStep with(@Stringly.Name String alias, @Stringly.Name String... fieldAliases) {
         return new WithImpl(null, false).with(alias, fieldAliases);
     }
 
@@ -1051,7 +1051,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static WithAsStep with(String alias, Collection<String> fieldAliases) {
+    public static WithAsStep with(@Stringly.Name String alias, @Stringly.Name Collection<String> fieldAliases) {
         return new WithImpl(null, false).with(alias, fieldAliases);
     }
 
@@ -1137,7 +1137,7 @@ public class DSL {
     @Deprecated(forRemoval = true, since = "3.14")
     @NotNull
     @Support
-    public static WithAsStep with(String alias, Function<? super Field<?>, ? extends String> fieldNameFunction) {
+    public static WithAsStep with(@Stringly.Name String alias, Function<? super Field<?>, ? extends String> fieldNameFunction) {
         return new WithImpl(null, false).with(alias, fieldNameFunction);
     }
 
@@ -1158,7 +1158,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep1 with(String alias, String fieldAlias1) {
+    public static WithAsStep1 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1) {
         return new WithImpl(null, false).with(alias, fieldAlias1);
     }
 
@@ -1177,7 +1177,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep2 with(String alias, String fieldAlias1, String fieldAlias2) {
+    public static WithAsStep2 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2);
     }
 
@@ -1196,7 +1196,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep3 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3) {
+    public static WithAsStep3 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3);
     }
 
@@ -1215,7 +1215,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep4 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4) {
+    public static WithAsStep4 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4);
     }
 
@@ -1234,7 +1234,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep5 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5) {
+    public static WithAsStep5 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5);
     }
 
@@ -1253,7 +1253,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep6 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6) {
+    public static WithAsStep6 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6);
     }
 
@@ -1272,7 +1272,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep7 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7) {
+    public static WithAsStep7 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7);
     }
 
@@ -1291,7 +1291,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep8 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8) {
+    public static WithAsStep8 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8);
     }
 
@@ -1310,7 +1310,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep9 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9) {
+    public static WithAsStep9 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9);
     }
 
@@ -1329,7 +1329,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep10 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10) {
+    public static WithAsStep10 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10);
     }
 
@@ -1348,7 +1348,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep11 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11) {
+    public static WithAsStep11 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11);
     }
 
@@ -1367,7 +1367,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep12 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12) {
+    public static WithAsStep12 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12);
     }
 
@@ -1386,7 +1386,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep13 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13) {
+    public static WithAsStep13 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13);
     }
 
@@ -1405,7 +1405,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep14 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14) {
+    public static WithAsStep14 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14);
     }
 
@@ -1424,7 +1424,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep15 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15) {
+    public static WithAsStep15 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15);
     }
 
@@ -1443,7 +1443,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep16 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16) {
+    public static WithAsStep16 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16);
     }
 
@@ -1462,7 +1462,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep17 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17) {
+    public static WithAsStep17 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17);
     }
 
@@ -1481,7 +1481,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep18 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18) {
+    public static WithAsStep18 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18);
     }
 
@@ -1500,7 +1500,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep19 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18, String fieldAlias19) {
+    public static WithAsStep19 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18, @Stringly.Name String fieldAlias19) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19);
     }
 
@@ -1519,7 +1519,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep20 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18, String fieldAlias19, String fieldAlias20) {
+    public static WithAsStep20 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18, @Stringly.Name String fieldAlias19, @Stringly.Name String fieldAlias20) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19, fieldAlias20);
     }
 
@@ -1538,7 +1538,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep21 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18, String fieldAlias19, String fieldAlias20, String fieldAlias21) {
+    public static WithAsStep21 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18, @Stringly.Name String fieldAlias19, @Stringly.Name String fieldAlias20, @Stringly.Name String fieldAlias21) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19, fieldAlias20, fieldAlias21);
     }
 
@@ -1557,7 +1557,7 @@ public class DSL {
      */
     @NotNull @CheckReturnValue
     @Support
-    public static WithAsStep22 with(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18, String fieldAlias19, String fieldAlias20, String fieldAlias21, String fieldAlias22) {
+    public static WithAsStep22 with(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18, @Stringly.Name String fieldAlias19, @Stringly.Name String fieldAlias20, @Stringly.Name String fieldAlias21, @Stringly.Name String fieldAlias22) {
         return new WithImpl(null, false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19, fieldAlias20, fieldAlias21, fieldAlias22);
     }
 
@@ -2053,7 +2053,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep withRecursive(String alias) {
+    public static WithAsStep withRecursive(@Stringly.Name String alias) {
         return new WithImpl(null, true).with(alias);
     }
 
@@ -2075,7 +2075,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep withRecursive(String alias, String... fieldAliases) {
+    public static WithAsStep withRecursive(@Stringly.Name String alias, String... fieldAliases) {
         return new WithImpl(null, true).with(alias, fieldAliases);
     }
 
@@ -2097,7 +2097,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep withRecursive(String alias, Collection<String> fieldAliases) {
+    public static WithAsStep withRecursive(@Stringly.Name String alias, Collection<String> fieldAliases) {
         return new WithImpl(null, true).with(alias, fieldAliases);
     }
 
@@ -2190,7 +2190,7 @@ public class DSL {
     @Deprecated(forRemoval = true, since = "3.14")
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep withRecursive(String alias, Function<? super Field<?>, ? extends String> fieldNameFunction) {
+    public static WithAsStep withRecursive(@Stringly.Name String alias, Function<? super Field<?>, ? extends String> fieldNameFunction) {
         return new WithImpl(null, true).with(alias, fieldNameFunction);
     }
 
@@ -2211,7 +2211,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep1 withRecursive(String alias, String fieldAlias1) {
+    public static WithAsStep1 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1) {
         return new WithImpl(null, true).with(alias, fieldAlias1);
     }
 
@@ -2230,7 +2230,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep2 withRecursive(String alias, String fieldAlias1, String fieldAlias2) {
+    public static WithAsStep2 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2);
     }
 
@@ -2249,7 +2249,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep3 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3) {
+    public static WithAsStep3 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3);
     }
 
@@ -2268,7 +2268,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep4 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4) {
+    public static WithAsStep4 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4);
     }
 
@@ -2287,7 +2287,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep5 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5) {
+    public static WithAsStep5 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5);
     }
 
@@ -2306,7 +2306,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep6 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6) {
+    public static WithAsStep6 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6);
     }
 
@@ -2325,7 +2325,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep7 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7) {
+    public static WithAsStep7 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7);
     }
 
@@ -2344,7 +2344,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep8 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8) {
+    public static WithAsStep8 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8);
     }
 
@@ -2363,7 +2363,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep9 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9) {
+    public static WithAsStep9 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9);
     }
 
@@ -2382,7 +2382,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep10 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10) {
+    public static WithAsStep10 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10);
     }
 
@@ -2401,7 +2401,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep11 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11) {
+    public static WithAsStep11 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11);
     }
 
@@ -2420,7 +2420,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep12 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12) {
+    public static WithAsStep12 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12);
     }
 
@@ -2439,7 +2439,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep13 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13) {
+    public static WithAsStep13 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13);
     }
 
@@ -2458,7 +2458,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep14 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14) {
+    public static WithAsStep14 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14);
     }
 
@@ -2477,7 +2477,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep15 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15) {
+    public static WithAsStep15 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15);
     }
 
@@ -2496,7 +2496,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep16 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16) {
+    public static WithAsStep16 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16);
     }
 
@@ -2515,7 +2515,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep17 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17) {
+    public static WithAsStep17 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17);
     }
 
@@ -2534,7 +2534,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep18 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18) {
+    public static WithAsStep18 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18);
     }
 
@@ -2553,7 +2553,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep19 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18, String fieldAlias19) {
+    public static WithAsStep19 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18, @Stringly.Name String fieldAlias19) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19);
     }
 
@@ -2572,7 +2572,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep20 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18, String fieldAlias19, String fieldAlias20) {
+    public static WithAsStep20 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18, @Stringly.Name String fieldAlias19, @Stringly.Name String fieldAlias20) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19, fieldAlias20);
     }
 
@@ -2591,7 +2591,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep21 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18, String fieldAlias19, String fieldAlias20, String fieldAlias21) {
+    public static WithAsStep21 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18, @Stringly.Name String fieldAlias19, @Stringly.Name String fieldAlias20, @Stringly.Name String fieldAlias21) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19, fieldAlias20, fieldAlias21);
     }
 
@@ -2610,7 +2610,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static WithAsStep22 withRecursive(String alias, String fieldAlias1, String fieldAlias2, String fieldAlias3, String fieldAlias4, String fieldAlias5, String fieldAlias6, String fieldAlias7, String fieldAlias8, String fieldAlias9, String fieldAlias10, String fieldAlias11, String fieldAlias12, String fieldAlias13, String fieldAlias14, String fieldAlias15, String fieldAlias16, String fieldAlias17, String fieldAlias18, String fieldAlias19, String fieldAlias20, String fieldAlias21, String fieldAlias22) {
+    public static WithAsStep22 withRecursive(@Stringly.Name String alias, @Stringly.Name String fieldAlias1, @Stringly.Name String fieldAlias2, @Stringly.Name String fieldAlias3, @Stringly.Name String fieldAlias4, @Stringly.Name String fieldAlias5, @Stringly.Name String fieldAlias6, @Stringly.Name String fieldAlias7, @Stringly.Name String fieldAlias8, @Stringly.Name String fieldAlias9, @Stringly.Name String fieldAlias10, @Stringly.Name String fieldAlias11, @Stringly.Name String fieldAlias12, @Stringly.Name String fieldAlias13, @Stringly.Name String fieldAlias14, @Stringly.Name String fieldAlias15, @Stringly.Name String fieldAlias16, @Stringly.Name String fieldAlias17, @Stringly.Name String fieldAlias18, @Stringly.Name String fieldAlias19, @Stringly.Name String fieldAlias20, @Stringly.Name String fieldAlias21, @Stringly.Name String fieldAlias22) {
         return new WithImpl(null, true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19, fieldAlias20, fieldAlias21, fieldAlias22);
     }
 
@@ -3219,7 +3219,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static SelectWhereStep<Record> selectFrom(String sql) {
+    public static SelectWhereStep<Record> selectFrom(@Stringly.SQL String sql) {
         return dsl().selectFrom(sql);
     }
 
@@ -3255,7 +3255,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static SelectWhereStep<Record> selectFrom(String sql, Object... bindings) {
+    public static SelectWhereStep<Record> selectFrom(@Stringly.SQL String sql, Object... bindings) {
         return dsl().selectFrom(sql, bindings);
     }
 
@@ -3291,7 +3291,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static SelectWhereStep<Record> selectFrom(String sql, QueryPart... parts) {
+    public static SelectWhereStep<Record> selectFrom(@Stringly.SQL String sql, QueryPart... parts) {
         return dsl().selectFrom(sql, parts);
     }
 
@@ -6501,7 +6501,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Comment comment(String comment) {
+    public static Comment comment(@Stringly.Param String comment) {
         return isEmpty(comment) ? CommentImpl.NO_COMMENT : new CommentImpl(comment);
     }
 
@@ -6532,7 +6532,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintTypeStep constraint(String name) {
+    public static ConstraintTypeStep constraint(@Stringly.Name String name) {
         return constraint(name(name));
     }
 
@@ -6541,7 +6541,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintEnforcementStep primaryKey(String... fields) {
+    public static ConstraintEnforcementStep primaryKey(@Stringly.Name String... fields) {
         return constraint().primaryKey(fields);
     }
 
@@ -6577,7 +6577,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStepN foreignKey(String... fields) {
+    public static ConstraintForeignKeyReferencesStepN foreignKey(@Stringly.Name String... fields) {
         return constraint().foreignKey(fields);
     }
 
@@ -7011,7 +7011,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep1<?> foreignKey(String field1) {
+    public static ConstraintForeignKeyReferencesStep1<?> foreignKey(@Stringly.Name String field1) {
         return constraint().foreignKey(field1);
     }
 
@@ -7020,7 +7020,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep2<?, ?> foreignKey(String field1, String field2) {
+    public static ConstraintForeignKeyReferencesStep2<?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2) {
         return constraint().foreignKey(field1, field2);
     }
 
@@ -7029,7 +7029,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep3<?, ?, ?> foreignKey(String field1, String field2, String field3) {
+    public static ConstraintForeignKeyReferencesStep3<?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3) {
         return constraint().foreignKey(field1, field2, field3);
     }
 
@@ -7038,7 +7038,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep4<?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4) {
+    public static ConstraintForeignKeyReferencesStep4<?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4) {
         return constraint().foreignKey(field1, field2, field3, field4);
     }
 
@@ -7047,7 +7047,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep5<?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5) {
+    public static ConstraintForeignKeyReferencesStep5<?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5) {
         return constraint().foreignKey(field1, field2, field3, field4, field5);
     }
 
@@ -7056,7 +7056,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep6<?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6) {
+    public static ConstraintForeignKeyReferencesStep6<?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6);
     }
 
@@ -7065,7 +7065,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep7<?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7) {
+    public static ConstraintForeignKeyReferencesStep7<?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7);
     }
 
@@ -7074,7 +7074,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep8<?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8) {
+    public static ConstraintForeignKeyReferencesStep8<?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8);
     }
 
@@ -7083,7 +7083,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep9<?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9) {
+    public static ConstraintForeignKeyReferencesStep9<?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9);
     }
 
@@ -7092,7 +7092,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep10<?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10) {
+    public static ConstraintForeignKeyReferencesStep10<?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10);
     }
 
@@ -7101,7 +7101,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep11<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11) {
+    public static ConstraintForeignKeyReferencesStep11<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11);
     }
 
@@ -7110,7 +7110,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep12<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12) {
+    public static ConstraintForeignKeyReferencesStep12<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12);
     }
 
@@ -7119,7 +7119,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep13<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13) {
+    public static ConstraintForeignKeyReferencesStep13<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13);
     }
 
@@ -7128,7 +7128,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep14<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13, String field14) {
+    public static ConstraintForeignKeyReferencesStep14<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13, @Stringly.Name String field14) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14);
     }
 
@@ -7137,7 +7137,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep15<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13, String field14, String field15) {
+    public static ConstraintForeignKeyReferencesStep15<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13, @Stringly.Name String field14, @Stringly.Name String field15) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15);
     }
 
@@ -7146,7 +7146,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep16<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13, String field14, String field15, String field16) {
+    public static ConstraintForeignKeyReferencesStep16<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13, @Stringly.Name String field14, @Stringly.Name String field15, @Stringly.Name String field16) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16);
     }
 
@@ -7155,7 +7155,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep17<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13, String field14, String field15, String field16, String field17) {
+    public static ConstraintForeignKeyReferencesStep17<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13, @Stringly.Name String field14, @Stringly.Name String field15, @Stringly.Name String field16, @Stringly.Name String field17) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17);
     }
 
@@ -7164,7 +7164,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep18<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13, String field14, String field15, String field16, String field17, String field18) {
+    public static ConstraintForeignKeyReferencesStep18<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13, @Stringly.Name String field14, @Stringly.Name String field15, @Stringly.Name String field16, @Stringly.Name String field17, @Stringly.Name String field18) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18);
     }
 
@@ -7173,7 +7173,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep19<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13, String field14, String field15, String field16, String field17, String field18, String field19) {
+    public static ConstraintForeignKeyReferencesStep19<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13, @Stringly.Name String field14, @Stringly.Name String field15, @Stringly.Name String field16, @Stringly.Name String field17, @Stringly.Name String field18, @Stringly.Name String field19) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19);
     }
 
@@ -7182,7 +7182,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep20<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13, String field14, String field15, String field16, String field17, String field18, String field19, String field20) {
+    public static ConstraintForeignKeyReferencesStep20<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13, @Stringly.Name String field14, @Stringly.Name String field15, @Stringly.Name String field16, @Stringly.Name String field17, @Stringly.Name String field18, @Stringly.Name String field19, @Stringly.Name String field20) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20);
     }
 
@@ -7191,7 +7191,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep21<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13, String field14, String field15, String field16, String field17, String field18, String field19, String field20, String field21) {
+    public static ConstraintForeignKeyReferencesStep21<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13, @Stringly.Name String field14, @Stringly.Name String field15, @Stringly.Name String field16, @Stringly.Name String field17, @Stringly.Name String field18, @Stringly.Name String field19, @Stringly.Name String field20, @Stringly.Name String field21) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21);
     }
 
@@ -7200,7 +7200,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintForeignKeyReferencesStep22<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8, String field9, String field10, String field11, String field12, String field13, String field14, String field15, String field16, String field17, String field18, String field19, String field20, String field21, String field22) {
+    public static ConstraintForeignKeyReferencesStep22<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> foreignKey(@Stringly.Name String field1, @Stringly.Name String field2, @Stringly.Name String field3, @Stringly.Name String field4, @Stringly.Name String field5, @Stringly.Name String field6, @Stringly.Name String field7, @Stringly.Name String field8, @Stringly.Name String field9, @Stringly.Name String field10, @Stringly.Name String field11, @Stringly.Name String field12, @Stringly.Name String field13, @Stringly.Name String field14, @Stringly.Name String field15, @Stringly.Name String field16, @Stringly.Name String field17, @Stringly.Name String field18, @Stringly.Name String field19, @Stringly.Name String field20, @Stringly.Name String field21, @Stringly.Name String field22) {
         return constraint().foreignKey(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22);
     }
 
@@ -7211,7 +7211,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static ConstraintEnforcementStep unique(String... fields) {
+    public static ConstraintEnforcementStep unique(@Stringly.Name String... fields) {
         return constraint().unique(fields);
     }
 
@@ -13121,7 +13121,7 @@ public class DSL {
      */
     @NotNull
     @Support({ HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, YUGABYTEDB })
-    public static Collation collation(String collation) {
+    public static Collation collation(@Stringly.Name String collation) {
         return collation(name(collation));
     }
 
@@ -13139,7 +13139,7 @@ public class DSL {
      */
     @NotNull
     @Support({ MARIADB, MYSQL })
-    public static CharacterSet characterSet(String characterSet) {
+    public static CharacterSet characterSet(@Stringly.Name String characterSet) {
         return characterSet(name(characterSet));
     }
 
@@ -13163,7 +13163,7 @@ public class DSL {
     @PlainSQL
     @NotNull
     @Support
-    public static Privilege privilege(String privilege) {
+    public static Privilege privilege(@Stringly.Keyword String privilege) {
         return privilege(keyword(privilege));
     }
 
@@ -13183,7 +13183,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static User user(String name) {
+    public static User user(@Stringly.Name String name) {
         return user(name(name));
     }
 
@@ -13203,7 +13203,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Role role(String name) {
+    public static Role role(@Stringly.Name String name) {
         return role(name(name));
     }
 
@@ -13889,7 +13889,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Keyword keyword(String keyword) {
+    public static Keyword keyword(@Stringly.Keyword String keyword) {
         return new KeywordImpl(keyword);
     }
 
@@ -13922,7 +13922,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name name(String unqualifiedName) {
+    public static Name name(@Stringly.Name String unqualifiedName) {
         return new UnqualifiedName(unqualifiedName);
     }
 
@@ -13951,7 +13951,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name name(String... qualifiedName) {
+    public static Name name(@Stringly.Name String... qualifiedName) {
         if (Tools.isEmpty(qualifiedName))
             return new UnqualifiedName(null);
 
@@ -14029,7 +14029,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name name(Collection<String> qualifiedName) {
+    public static Name name(@Stringly.Name Collection<String> qualifiedName) {
         return name(qualifiedName.toArray(Tools.EMPTY_STRING));
     }
 
@@ -14047,7 +14047,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name quotedName(String unqualifiedName) {
+    public static Name quotedName(@Stringly.Name String unqualifiedName) {
         return new UnqualifiedName(unqualifiedName, Quoted.QUOTED);
     }
 
@@ -14065,7 +14065,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name quotedName(String... qualifiedName) {
+    public static Name quotedName(@Stringly.Name String... qualifiedName) {
         if (Tools.isEmpty(qualifiedName))
             return new UnqualifiedName(null);
 
@@ -14091,7 +14091,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name quotedName(Collection<String> qualifiedName) {
+    public static Name quotedName(@Stringly.Name Collection<String> qualifiedName) {
         return quotedName(qualifiedName.toArray(Tools.EMPTY_STRING));
     }
 
@@ -14108,7 +14108,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name unquotedName(String unqualifiedName) {
+    public static Name unquotedName(@Stringly.UnquotedName String unqualifiedName) {
         return new UnqualifiedName(unqualifiedName, Quoted.UNQUOTED);
     }
 
@@ -14125,7 +14125,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name unquotedName(String... qualifiedName) {
+    public static Name unquotedName(@Stringly.UnquotedName String... qualifiedName) {
         if (Tools.isEmpty(qualifiedName))
             return new UnqualifiedName(null);
 
@@ -14150,7 +14150,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name unquotedName(Collection<String> qualifiedName) {
+    public static Name unquotedName(@Stringly.UnquotedName Collection<String> qualifiedName) {
         return unquotedName(qualifiedName.toArray(Tools.EMPTY_STRING));
     }
 
@@ -14167,7 +14167,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name systemName(String unqualifiedName) {
+    public static Name systemName(@Stringly.UnquotedName String unqualifiedName) {
         return new UnqualifiedName(unqualifiedName, Quoted.SYSTEM);
     }
 
@@ -14184,7 +14184,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name systemName(String... qualifiedName) {
+    public static Name systemName(@Stringly.UnquotedName String... qualifiedName) {
         if (Tools.isEmpty(qualifiedName))
             return new UnqualifiedName(null);
 
@@ -14209,7 +14209,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Name systemName(Collection<String> qualifiedName) {
+    public static Name systemName(@Stringly.UnquotedName Collection<String> qualifiedName) {
         return systemName(qualifiedName.toArray(Tools.EMPTY_STRING));
     }
 
@@ -14662,7 +14662,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Catalog catalog(String name) {
+    public static Catalog catalog(@Stringly.Name String name) {
         return catalog(name(name));
     }
 
@@ -14700,7 +14700,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Schema schema(String name) {
+    public static Schema schema(@Stringly.Name String name) {
         return schema(name(name));
     }
 
@@ -15222,7 +15222,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static <T> Parameter<T> in(String name, DataType<T> type) {
+    public static <T> Parameter<T> in(@Stringly.Name String name, DataType<T> type) {
         return in(name(name), type);
     }
 
@@ -15262,7 +15262,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static <T> Parameter<T> inOut(String name, DataType<T> type) {
+    public static <T> Parameter<T> inOut(@Stringly.Name String name, DataType<T> type) {
         return inOut(name(name), type);
     }
 
@@ -15302,7 +15302,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static <T> Parameter<T> out(String name, DataType<T> type) {
+    public static <T> Parameter<T> out(@Stringly.Name String name, DataType<T> type) {
         return out(name(name), type);
     }
 
@@ -15913,7 +15913,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static SQL raw(String sql) {
+    public static SQL raw(@Stringly.SQL String sql) {
         return new SQLImpl(sql, true);
     }
 
@@ -15936,7 +15936,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static SQL sql(String sql) {
+    public static SQL sql(@Stringly.SQL String sql) {
         return sql(sql, new Object[0]);
     }
 
@@ -15974,7 +15974,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static SQL sql(String sql, QueryPart... parts) {
+    public static SQL sql(@Stringly.SQL String sql, QueryPart... parts) {
         return sql(sql, (Object[]) parts);
     }
 
@@ -16006,7 +16006,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static SQL sql(String sql, Object... bindings) {
+    public static SQL sql(@Stringly.SQL String sql, Object... bindings) {
         return new SQLImpl(sql, false, bindings);
     }
 
@@ -16060,7 +16060,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static RowCountQuery query(String sql) {
+    public static RowCountQuery query(@Stringly.SQL String sql) {
         return dsl().query(sql);
     }
 
@@ -16087,7 +16087,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static RowCountQuery query(String sql, Object... bindings) {
+    public static RowCountQuery query(@Stringly.SQL String sql, Object... bindings) {
         return dsl().query(sql, bindings);
     }
 
@@ -16122,7 +16122,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static RowCountQuery query(String sql, QueryPart... parts) {
+    public static RowCountQuery query(@Stringly.SQL String sql, QueryPart... parts) {
         return dsl().query(sql, parts);
     }
 
@@ -16212,7 +16212,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static ResultQuery<Record> resultQuery(String sql) {
+    public static ResultQuery<Record> resultQuery(@Stringly.SQL String sql) {
         return dsl().resultQuery(sql);
     }
 
@@ -16260,7 +16260,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static ResultQuery<Record> resultQuery(String sql, Object... bindings) {
+    public static ResultQuery<Record> resultQuery(@Stringly.SQL String sql, Object... bindings) {
         return dsl().resultQuery(sql, bindings);
     }
 
@@ -16295,7 +16295,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static ResultQuery<Record> resultQuery(String sql, QueryPart... parts) {
+    public static ResultQuery<Record> resultQuery(@Stringly.SQL String sql, QueryPart... parts) {
         return dsl().resultQuery(sql, parts);
     }
 
@@ -16359,7 +16359,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static Table<Record> table(String sql) {
+    public static Table<Record> table(@Stringly.SQL String sql) {
         return table(sql, new Object[0]);
     }
 
@@ -16395,7 +16395,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static Table<Record> table(String sql, Object... bindings) {
+    public static Table<Record> table(@Stringly.SQL String sql, Object... bindings) {
         return table(sql(sql, bindings));
     }
 
@@ -16432,7 +16432,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static Table<Record> table(String sql, QueryPart... parts) {
+    public static Table<Record> table(@Stringly.SQL String sql, QueryPart... parts) {
         return table(sql, (Object[]) parts);
     }
 
@@ -16495,7 +16495,7 @@ public class DSL {
      */
     @NotNull
     @Support({ FIREBIRD, H2, HSQLDB, POSTGRES, YUGABYTEDB })
-    public static Domain<?> domain(String name) {
+    public static Domain<?> domain(@Stringly.Name String name) {
         return domain(name(name));
     }
 
@@ -16520,7 +16520,7 @@ public class DSL {
      */
     @NotNull
     @Support({ FIREBIRD, H2, HSQLDB, POSTGRES, YUGABYTEDB })
-    public static <T> Domain<T> domain(String name, Class<T> type) {
+    public static <T> Domain<T> domain(@Stringly.Name String name, Class<T> type) {
         return domain(name(name), getDataType(type));
     }
 
@@ -16545,7 +16545,7 @@ public class DSL {
      */
     @NotNull
     @Support({ FIREBIRD, H2, HSQLDB, POSTGRES, YUGABYTEDB })
-    public static <T> Domain<T> domain(String name, DataType<T> type) {
+    public static <T> Domain<T> domain(@Stringly.Name String name, DataType<T> type) {
         return domain(name(name), type);
     }
 
@@ -16657,7 +16657,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static Field<Object> field(String sql) {
+    public static Field<Object> field(@Stringly.SQL String sql) {
         return field(sql, new Object[0]);
     }
 
@@ -16708,7 +16708,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static Field<Object> field(String sql, Object... bindings) {
+    public static Field<Object> field(@Stringly.SQL String sql, Object... bindings) {
         return field(sql, Object.class, bindings);
     }
 
@@ -16833,7 +16833,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> Field<T> field(String sql, Class<T> type, Object... bindings) {
+    public static <T> Field<T> field(@Stringly.SQL String sql, Class<T> type, Object... bindings) {
         return field(sql, getDataType(type), bindings);
     }
 
@@ -16895,7 +16895,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> Field<T> field(String sql, DataType<T> type) {
+    public static <T> Field<T> field(@Stringly.SQL String sql, DataType<T> type) {
         return field(sql, type, new Object[0]);
     }
 
@@ -16928,7 +16928,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> Field<T> field(String sql, DataType<T> type, Object... bindings) {
+    public static <T> Field<T> field(@Stringly.SQL String sql, DataType<T> type, Object... bindings) {
         return field(sql(sql, bindings), type);
     }
 
@@ -16966,7 +16966,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> Field<T> field(String sql, DataType<T> type, QueryPart... parts) {
+    public static <T> Field<T> field(@Stringly.SQL String sql, DataType<T> type, QueryPart... parts) {
         return field(sql(sql, parts), type);
     }
 
@@ -17028,7 +17028,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static Field<Object> field(String sql, QueryPart... parts) {
+    public static Field<Object> field(@Stringly.SQL String sql, QueryPart... parts) {
         return field(sql, (Object[]) parts);
     }
 
@@ -17075,7 +17075,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> Field<T> field(String sql, Class<T> type, QueryPart... parts) {
+    public static <T> Field<T> field(@Stringly.SQL String sql, Class<T> type, QueryPart... parts) {
         return field(sql, getDataType(type), (Object[]) parts);
     }
 
@@ -17104,7 +17104,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> Field<T> function(String name, Class<T> type, Field<?>... arguments) {
+    public static <T> Field<T> function(@Stringly.UnquotedName String name, Class<T> type, Field<?>... arguments) {
         return function(name, type, asList(arguments));
     }
 
@@ -17125,7 +17125,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> Field<T> function(String name, DataType<T> type, Field<?>... arguments) {
+    public static <T> Field<T> function(@Stringly.UnquotedName String name, DataType<T> type, Field<?>... arguments) {
         return function(name, type, asList(arguments));
     }
 
@@ -17190,7 +17190,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> Field<T> function(String name, Class<T> type, Collection<? extends Field<?>> arguments) {
+    public static <T> Field<T> function(@Stringly.UnquotedName String name, Class<T> type, Collection<? extends Field<?>> arguments) {
         return function(name, getDataType(type), Tools.nullSafe(arguments));
     }
 
@@ -17211,7 +17211,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> Field<T> function(String name, DataType<T> type, Collection<? extends Field<?>> arguments) {
+    public static <T> Field<T> function(@Stringly.UnquotedName String name, DataType<T> type, Collection<? extends Field<?>> arguments) {
         return new org.jooq.impl.Function<>(name, type, Tools.nullSafe(arguments));
     }
 
@@ -17290,7 +17290,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> AggregateFunction<T> aggregate(String name, Class<T> type, Field<?>... arguments) {
+    public static <T> AggregateFunction<T> aggregate(@Stringly.UnquotedName String name, Class<T> type, Field<?>... arguments) {
         return aggregate(name, getDataType(type), Tools.nullSafe(arguments));
     }
 
@@ -17312,7 +17312,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> AggregateFunction<T> aggregate(String name, DataType<T> type, Field<?>... arguments) {
+    public static <T> AggregateFunction<T> aggregate(@Stringly.UnquotedName String name, DataType<T> type, Field<?>... arguments) {
         return new org.jooq.impl.DefaultAggregateFunction<>(name, type, Tools.nullSafe(arguments));
     }
 
@@ -17379,7 +17379,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> AggregateFunction<T> aggregateDistinct(String name, Class<T> type, Field<?>... arguments) {
+    public static <T> AggregateFunction<T> aggregateDistinct(@Stringly.UnquotedName String name, Class<T> type, Field<?>... arguments) {
         return aggregateDistinct(name, getDataType(type), Tools.nullSafe(arguments));
     }
 
@@ -17401,7 +17401,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static <T> AggregateFunction<T> aggregateDistinct(String name, DataType<T> type, Field<?>... arguments) {
+    public static <T> AggregateFunction<T> aggregateDistinct(@Stringly.UnquotedName String name, DataType<T> type, Field<?>... arguments) {
         return new org.jooq.impl.DefaultAggregateFunction<>(true, name, type, Tools.nullSafe(arguments));
     }
 
@@ -17491,7 +17491,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static Condition condition(String sql) {
+    public static Condition condition(@Stringly.SQL String sql) {
         return condition(sql, new Object[0]);
     }
 
@@ -17521,7 +17521,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static Condition condition(String sql, Object... bindings) {
+    public static Condition condition(@Stringly.SQL String sql, Object... bindings) {
         return condition(sql(sql, bindings));
     }
 
@@ -17554,7 +17554,7 @@ public class DSL {
     @NotNull
     @Support
     @PlainSQL
-    public static Condition condition(String sql, QueryPart... parts) {
+    public static Condition condition(@Stringly.SQL String sql, QueryPart... parts) {
         return condition(sql, (Object[]) parts);
     }
 
@@ -29204,7 +29204,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CUBRID, DERBY, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE })
-    public static String escape(String value, char escape) {
+    public static String escape(@Stringly.Param String value, char escape) {
         String esc = "" + escape;
         return StringUtils.replace(
                    StringUtils.replace(
@@ -29496,7 +29496,7 @@ public class DSL {
     @NotNull
     @Support
     public static Field<OffsetTime> currentOffsetTime() {
-        return currentTime().cast(SQLDataType.OFFSETTIME.notNull());
+        return new CurrentTime<>(SQLDataType.OFFSETTIME.notNull()).cast(SQLDataType.OFFSETTIME.notNull());
     }
 
     /**
@@ -29507,7 +29507,7 @@ public class DSL {
     @NotNull
     @Support
     public static Field<OffsetDateTime> currentOffsetDateTime() {
-        return currentTimestamp().cast(SQLDataType.OFFSETDATETIME.notNull());
+        return new CurrentTimestamp<>(SQLDataType.OFFSETDATETIME.notNull()).cast(SQLDataType.OFFSETDATETIME.notNull());
     }
 
     /**
@@ -31232,7 +31232,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CUBRID, DERBY, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE })
-    public static Field<Date> date(String value) {
+    public static Field<Date> date(@Stringly.Param String value) {
         return Tools.field(Convert.convert(value, Date.class));
     }
 
@@ -31313,7 +31313,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CUBRID, DERBY, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE })
-    public static Field<LocalDate> localDate(String value) {
+    public static Field<LocalDate> localDate(@Stringly.Param String value) {
         return Tools.field(Convert.convert(value, LocalDate.class));
     }
 
@@ -31340,7 +31340,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CUBRID, DERBY, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE })
-    public static Field<LocalTime> localTime(String value) {
+    public static Field<LocalTime> localTime(@Stringly.Param String value) {
         return Tools.field(Convert.convert(value, LocalTime.class));
     }
 
@@ -31367,7 +31367,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CUBRID, DERBY, FIREBIRD, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE })
-    public static Field<LocalDateTime> localDateTime(String value) {
+    public static Field<LocalDateTime> localDateTime(@Stringly.Param String value) {
         return Tools.field(Convert.convert(value, LocalDateTime.class));
     }
 
@@ -31400,7 +31400,7 @@ public class DSL {
      */
     @NotNull
     @Support({ FIREBIRD, H2, HSQLDB, POSTGRES, SQLITE })
-    public static Field<OffsetTime> offsetTime(String value) {
+    public static Field<OffsetTime> offsetTime(@Stringly.Param String value) {
         return Tools.field(Convert.convert(value, OffsetTime.class));
     }
 
@@ -31445,7 +31445,7 @@ public class DSL {
      */
     @NotNull
     @Support({ FIREBIRD, H2, HSQLDB, POSTGRES, SQLITE })
-    public static Field<OffsetDateTime> offsetDateTime(String value) {
+    public static Field<OffsetDateTime> offsetDateTime(@Stringly.Param String value) {
         return Tools.field(Convert.convert(value, OffsetDateTime.class));
     }
 
@@ -31490,7 +31490,7 @@ public class DSL {
      */
     @NotNull
     @Support({ FIREBIRD, H2, HSQLDB, POSTGRES, SQLITE })
-    public static Field<Instant> instant(String value) {
+    public static Field<Instant> instant(@Stringly.Param String value) {
         return Tools.field(Convert.convert(value, Instant.class));
     }
 
@@ -31933,7 +31933,7 @@ public class DSL {
      */
     @NotNull
     @Support({ POSTGRES })
-    public static Field<XML> xmlparseDocument(String content) {
+    public static Field<XML> xmlparseDocument(@Stringly.Param String content) {
         return xmlparseDocument(Tools.field(content));
     }
 
@@ -31951,7 +31951,7 @@ public class DSL {
      */
     @NotNull
     @Support({ POSTGRES })
-    public static Field<XML> xmlparseContent(String content) {
+    public static Field<XML> xmlparseContent(@Stringly.Param String content) {
         return xmlparseContent(Tools.field(content));
     }
 
@@ -31969,7 +31969,7 @@ public class DSL {
      */
     @NotNull
     @Support({ POSTGRES })
-    public static Field<XML> xmlelement(String name, Field<?>... content) {
+    public static Field<XML> xmlelement(@Stringly.Name String name, Field<?>... content) {
         return xmlelement(name(name), (XMLAttributes) null, asList(content));
     }
 
@@ -31978,7 +31978,7 @@ public class DSL {
      */
     @NotNull
     @Support({ POSTGRES })
-    public static Field<XML> xmlelement(String name, Collection<? extends Field<?>> content) {
+    public static Field<XML> xmlelement(@Stringly.Name String name, Collection<? extends Field<?>> content) {
         return xmlelement(name(name), (XMLAttributes) null, content);
     }
 
@@ -32005,7 +32005,7 @@ public class DSL {
      */
     @NotNull
     @Support({ POSTGRES })
-    public static Field<XML> xmlelement(String name, XMLAttributes attributes, Field<?>... content) {
+    public static Field<XML> xmlelement(@Stringly.Name String name, XMLAttributes attributes, Field<?>... content) {
         return xmlelement(name(name), attributes, asList(content));
     }
 
@@ -32014,7 +32014,7 @@ public class DSL {
      */
     @NotNull
     @Support({ POSTGRES })
-    public static Field<XML> xmlelement(String name, XMLAttributes attributes, Collection<? extends Field<?>> content) {
+    public static Field<XML> xmlelement(@Stringly.Name String name, XMLAttributes attributes, Collection<? extends Field<?>> content) {
         return xmlelement(name(name), attributes, content);
     }
 
@@ -32068,7 +32068,7 @@ public class DSL {
      */
     @NotNull
     @Support({ POSTGRES })
-    public static XMLQueryPassingStep xmlquery(String xpath) {
+    public static XMLQueryPassingStep xmlquery(@Stringly.Param String xpath) {
         return xmlquery(Tools.field(xpath));
     }
 
@@ -32086,7 +32086,7 @@ public class DSL {
      */
     @NotNull
     @Support({ POSTGRES })
-    public static XMLExistsPassingStep xmlexists(String xpath) {
+    public static XMLExistsPassingStep xmlexists(@Stringly.Param String xpath) {
         return xmlexists(Tools.field(xpath));
     }
 
@@ -32104,7 +32104,7 @@ public class DSL {
      */
     @NotNull
     @Support({ POSTGRES })
-    public static XMLTablePassingStep xmltable(String xpath) {
+    public static XMLTablePassingStep xmltable(@Stringly.Param String xpath) {
         return xmltable(Tools.field(xpath));
     }
 
@@ -32129,7 +32129,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, DUCKDB, H2, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static JSONEntryValueStep key(String key) {
+    public static JSONEntryValueStep key(@Stringly.Param String key) {
         return key(Tools.field(key));
     }
 
@@ -32267,7 +32267,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, DUCKDB, H2, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static JSONObjectNullStep<JSONB> jsonbObject(String key, Field<?> value) {
+    public static JSONObjectNullStep<JSONB> jsonbObject(@Stringly.Param String key, Field<?> value) {
         return jsonbObject(jsonEntry(key, value));
     }
 
@@ -32346,7 +32346,7 @@ public class DSL {
      * The JSON array aggregate function.
      */
     @NotNull
-    @Support({ CLICKHOUSE, DUCKDB, H2, MARIADB, MYSQL, SQLITE, TRINO })
+    @Support({ CLICKHOUSE, DUCKDB, H2, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
     public static JSONArrayAggOrderByStep<JSON> jsonArrayAggDistinct(Field<?> value) {
         return new JSONArrayAgg<>(JSON, value, true);
     }
@@ -32377,7 +32377,7 @@ public class DSL {
      */
     @NotNull
     @Support({ DUCKDB, H2, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static JSONObjectAggNullStep<JSON> jsonObjectAgg(String key, Field<?> value) {
+    public static JSONObjectAggNullStep<JSON> jsonObjectAgg(@Stringly.Param String key, Field<?> value) {
         return jsonObjectAgg(Tools.field(key), value);
     }
 
@@ -32416,7 +32416,7 @@ public class DSL {
      */
     @NotNull
     @Support({ DUCKDB, H2, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO, YUGABYTEDB })
-    public static JSONObjectAggNullStep<JSONB> jsonbObjectAgg(String key, Field<?> value) {
+    public static JSONObjectAggNullStep<JSONB> jsonbObjectAgg(@Stringly.Param String key, Field<?> value) {
         return jsonbObjectAgg(Tools.field(key), value);
     }
 
@@ -32443,7 +32443,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, DUCKDB, MARIADB, MYSQL, POSTGRES, SQLITE, YUGABYTEDB })
-    public static JSONExistsOnStep jsonExists(Field<JSON> field, String path) {
+    public static JSONExistsOnStep jsonExists(Field<JSON> field, @Stringly.Param String path) {
         return jsonExists(field, Tools.field(path));
     }
 
@@ -32461,7 +32461,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CLICKHOUSE, DUCKDB, MARIADB, MYSQL, POSTGRES, SQLITE, YUGABYTEDB })
-    public static JSONExistsOnStep jsonbExists(Field<JSONB> field, String path) {
+    public static JSONExistsOnStep jsonbExists(Field<JSONB> field, @Stringly.Param String path) {
         return jsonbExists(field, Tools.field(path));
     }
 
@@ -32497,7 +32497,7 @@ public class DSL {
      */
     @NotNull
     @Support({ MARIADB, MYSQL, POSTGRES, YUGABYTEDB })
-    public static JSONTableColumnsFirstStep jsonbTable(JSONB json, String path) {
+    public static JSONTableColumnsFirstStep jsonbTable(JSONB json, @Stringly.Param String path) {
         return jsonbTable(Tools.field(json), Tools.field(path));
     }
 
@@ -33763,7 +33763,43 @@ public class DSL {
      */
     @NotNull
     @Support({ H2, MARIADB, MYSQL, POSTGRES, SQLITE, YUGABYTEDB })
-    public static ArrayAggOrderByStep<Result<Record>> multisetAggDistinct(Collection<? extends Field<?>> fields) {
+    public static ArrayAggOrderByStep<Result<Record>> multisetAggDistinct(Collection<? extends SelectField<?>> fields) {
+        return new MultisetAgg<>(true, row(fields));
+    }
+
+    /**
+     * Get the <code>MULTISET_AGG(DISTINCT)</code> aggregate function to nest group
+     * contents.
+     * <p>
+     * This synthetic, non-standard aggregate function works in a similar way as
+     * the standard SQL <code>ARRAY_AGG</code> aggregate function. It is
+     * emulated using mappings to any of:
+     * <p>
+     * <ul>
+     * <li>{@link NestedCollectionEmulation#JSON}: A MULTISET of ROW types works
+     * just like a {@link #jsonArrayAggDistinct(Field)} of
+     * {@link #jsonObject(Field...)}, or an application of
+     * {@link SelectForStep#forJSON()}. jOOQ produces a JSON encoding that is
+     * compatible with {@link DSLContext#fetchFromJSON(String)}. Future jOOQ
+     * versions will make this format configurable according to
+     * {@link JSONFormat.RecordFormat}.</li>
+     * <li>{@link NestedCollectionEmulation#JSONB}: Just like <code>JSON</code>,
+     * but we're using {@link #jsonbArrayAggDistinct(Field)} and
+     * {@link #jsonbObject(Field...)}, or {@link SelectForStep#forJSONB()}.</li>
+     * <li>{@link NestedCollectionEmulation#DEFAULT}: By default, jOOQ chooses
+     * the optimal encoding among the above depending on your dialect,
+     * transparently.</li>
+     * </ul>
+     * <p>
+     * Note that unlike <code>MULTISET_AGG</code>, this depends on whether the
+     * underlying emulation supports the <code>DISTINCT</code> clause.
+     * <p>
+     * The emulation to be chosen is governed by
+     * {@link Settings#getEmulateMultiset()}.
+     */
+    @NotNull
+    @Support({ H2, MARIADB, MYSQL, POSTGRES, SQLITE, YUGABYTEDB })
+    public static ArrayAggOrderByStep<Result<Record>> multisetAggDistinct(SelectField<?>... fields) {
         return new MultisetAgg<>(true, row(fields));
     }
 
@@ -34704,7 +34740,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CUBRID, DUCKDB, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO })
-    public static OrderedAggregateFunction<String> listAgg(Field<?> field, String separator) {
+    public static OrderedAggregateFunction<String> listAgg(Field<?> field, @Stringly.Param String separator) {
         return listAgg(field, inline(separator));
     }
 
@@ -34737,7 +34773,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CUBRID, DUCKDB, H2, HSQLDB, MARIADB, MYSQL, POSTGRES })
-    public static OrderedAggregateFunction<String> listAggDistinct(Field<?> field, String separator) {
+    public static OrderedAggregateFunction<String> listAggDistinct(Field<?> field, @Stringly.Param String separator) {
         return listAggDistinct(field, inline(separator));
     }
 
@@ -34824,7 +34860,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CUBRID, DUCKDB, H2, HSQLDB, MARIADB, MYSQL, POSTGRES, SQLITE, TRINO })
-    public static OrderedAggregateFunction<String> stringAgg(Field<?> field, String separator) {
+    public static OrderedAggregateFunction<String> stringAgg(Field<?> field, @Stringly.Param String separator) {
         return listAgg(field, separator);
     }
 
@@ -34857,7 +34893,7 @@ public class DSL {
      */
     @NotNull
     @Support({ CUBRID, DUCKDB, H2, HSQLDB, MARIADB, MYSQL, POSTGRES })
-    public static OrderedAggregateFunction<String> stringAggDistinct(Field<?> field, String separator) {
+    public static OrderedAggregateFunction<String> stringAggDistinct(Field<?> field, @Stringly.Param String separator) {
         return listAggDistinct(field, separator);
     }
 
@@ -35651,7 +35687,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static Param<Object> param(String name) {
+    public static Param<Object> param(@Stringly.Name String name) {
         return param(name, Object.class);
     }
 
@@ -35672,7 +35708,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static <T> Param<T> param(String name, Class<T> type) {
+    public static <T> Param<T> param(@Stringly.Param String name, Class<T> type) {
         return val0(null, DefaultDataType.getDataType(null, type), true, 0, name);
     }
 
@@ -35683,7 +35719,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static <T> Param<T> param(String name, DataType<T> type) {
+    public static <T> Param<T> param(@Stringly.Name String name, DataType<T> type) {
         return val0(null, type, false, 0, name);
     }
 
@@ -35695,7 +35731,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static <T> Param<T> param(String name, Field<T> type) {
+    public static <T> Param<T> param(@Stringly.Name String name, Field<T> type) {
         return param(name, type.getDataType());
     }
 
@@ -35718,7 +35754,7 @@ public class DSL {
      */
     @NotNull
     @Support
-    public static <T> Param<T> param(String name, T value) {
+    public static <T> Param<T> param(@Stringly.Name String name, T value) {
         return val0(value, val(value).getDataType(), true, 0, name);
     }
 

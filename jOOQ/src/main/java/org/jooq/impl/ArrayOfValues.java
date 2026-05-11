@@ -40,12 +40,14 @@ package org.jooq.impl;
 import static org.jooq.impl.DSL.select;
 import static org.jooq.impl.DSL.systemName;
 import static org.jooq.impl.Keywords.K_ARRAY;
+import static org.jooq.impl.Keywords.K_EXPLODE;
 import static org.jooq.impl.Keywords.K_UNNEST;
 import static org.jooq.impl.Names.N_ARRAY_TABLE;
 import static org.jooq.impl.Names.N_COLUMN_VALUE;
 import static org.jooq.impl.Tools.isEmpty;
 
 import org.jooq.Context;
+import org.jooq.DataType;
 import org.jooq.Field;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -79,10 +81,10 @@ implements
     ArrayOfValues(Field<?>[] array, Name alias, Name[] fieldAliases) {
         super(alias, ArrayTable.fieldAliases(fieldAliases));
 
-        Class<?> arrayType = !isEmpty(array) ? array[0].getType() : Object.class;
+        DataType<?> arrayComponentType = !isEmpty(array) ? array[0].getDataType() : SQLDataType.OTHER;
 
         this.array = array;
-        this.field = ArrayTable.init(arrayType, this.alias, this.fieldAliases[0]);
+        this.field = ArrayTable.init(arrayComponentType, this.alias, this.fieldAliases[0]);
     }
 
     @Override
@@ -139,6 +141,12 @@ implements
                 ctx.visit(new ArrayTableEmulation(array, fieldAliases));
                 break;
 
+
+
+
+
+
+
             case CLICKHOUSE:
                 ctx.visit(new ClickHouseUnnest());
                 break;
@@ -153,9 +161,21 @@ implements
 
         @Override
         public final void accept(Context<?> ctx) {
-            ctx.visit(K_UNNEST).sql('(').visit(K_ARRAY).sql('[').visit(QueryPartListView.wrap(array)).sql(']').sql(")");
+            ctx.visit(K_UNNEST).sql('(').visit(DSL.array(array)).sql(")");
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     private final class ClickHouseUnnest extends DialectArrayTable {
 

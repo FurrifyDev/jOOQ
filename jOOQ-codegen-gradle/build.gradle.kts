@@ -10,13 +10,15 @@ java {
 }
 
 group = "org.jooq"
-version = "3.21.0-SNAPSHOT"
+version = "3.21.4-SNAPSHOT"
 
 repositories {
     mavenLocal()
     mavenCentral()
 }
 
+group = "org.jooq"
+version = "3.21.4-SNAPSHOT"
 publishing {
     repositories {
         maven {

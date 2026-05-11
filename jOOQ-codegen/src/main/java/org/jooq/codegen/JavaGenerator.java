@@ -2945,7 +2945,7 @@ public class JavaGenerator extends AbstractGenerator {
         if (generateInterfaces() && (isUDTOrTable || isArray)) {
             final String columnTypeFull = getJavaType(column.getType(resolver(out, Mode.DEFAULT)), out, Mode.DEFAULT);
             final String columnTypeInterface = out.ref(getJavaType(column.getType(resolver(out, Mode.INTERFACE)), out, Mode.INTERFACE));
-            final UDTDefinition udt = column.getDatabase().getUDT(column.getSchema(), column.getType().getUserType());
+            final UDTDefinition udt = column.getDatabase().getUDT(column.getType().getSchema(), column.getType().getUserType());
 
             if (!printDeprecationIfUnknownType(out, columnTypeFull))
                 out.javadoc("Setter for <code>%s</code>.[[before= ][%s]]", name, list(escapeEntities(comment(column))));
@@ -2997,7 +2997,7 @@ public class JavaGenerator extends AbstractGenerator {
 
         if (generateInterfaces() && (isUDTOrTable || isArray)) {
             final String typeInterface = out.ref(getJavaType(column.getType(resolver(out, Mode.INTERFACE)), out, Mode.INTERFACE));
-            final UDTDefinition udt = column.getDatabase().getUDT(column.getSchema(), column.getType().getUserType());
+            final UDTDefinition udt = column.getDatabase().getUDT(column.getType().getSchema(), column.getType().getUserType());
 
             if (scala) {
                 out.println("private def to%s(%s: %s): %s = {", toUC(member), scalaWhitespaceSuffix(member), typeInterface, type);
@@ -5057,7 +5057,12 @@ public class JavaGenerator extends AbstractGenerator {
             else
                 out.println("%sclass %s {", visibility(), referencesClassName);
 
+            TableDefinition t;
             for (RoutineDefinition routine : database.getRoutines(schema))
+                if (!generateTableValuedFunctionsAsTables()
+                    || (t = database.getTable(schema, routine.getInputName())) == null
+                    || !t.isTableValuedFunction()
+                )
                 printRoutine(out, routine);
 
             for (TableDefinition table : database.getTables(schema))
@@ -6590,9 +6595,9 @@ public class JavaGenerator extends AbstractGenerator {
     private Definition columnTypeDefinition(Definition column) {
         if (column instanceof TypedElementDefinition<?> e) {
             if (e.getType().isUDT())
-                return e.getDatabase().getUDT(e.getSchema(), e.getType().getQualifiedUserType());
+                return e.getDatabase().getUDT(e.getType().getSchema(), e.getType().getQualifiedUserType());
             else if (e.getType().isTable())
-                return e.getDatabase().getTable(e.getSchema(), e.getType().getQualifiedUserType());
+                return e.getDatabase().getTable(e.getType().getSchema(), e.getType().getQualifiedUserType());
         }
 
 
@@ -6844,7 +6849,7 @@ public class JavaGenerator extends AbstractGenerator {
                 // [#14853] The POJO property hasn't been generated in the setter, if the POJO
                 //          is immutable, as there are no setters.
                 if (generateImmutablePojos())
-                    generateEmbeddablePojoProperty(out, generateImmutableInterfaces(), override, columnTypeDeclared, columnMember);
+                    generateEmbeddablePojoProperty(out, true, override, columnTypeDeclared, columnMember);
 
                 out.tab(1).println("get(): %s = %s(", columnTypeDeclared, columnType);
             }
@@ -7013,7 +7018,7 @@ public class JavaGenerator extends AbstractGenerator {
 
         if (generateInterfaces() && (isUDTOrTable || isUDTOrTableArray)) {
             final String columnTypeInterface = out.ref(getJavaType(column.getType(resolver(out, Mode.INTERFACE)), out, Mode.INTERFACE));
-            final UDTDefinition udt = column.getDatabase().getUDT(column.getSchema(), column.getType().getUserType());
+            final UDTDefinition udt = column.getDatabase().getUDT(column.getType().getSchema(), column.getType().getUserType());
             final Definition udtOrTable = udt != null ? udt : column.getDatabase().getTable(column.getSchema(), column.getType().getUserType());
 
             if (scala) {

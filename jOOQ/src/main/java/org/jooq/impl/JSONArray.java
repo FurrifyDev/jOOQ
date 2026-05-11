@@ -265,6 +265,18 @@ implements
                 break;
             }
 
+
+
+
+
+
+
+
+
+
+
+
+
             case DUCKDB:
             case TRINO: {
                 if (ctx.family() == DUCKDB && onNull != JSONOnNull.ABSENT_ON_NULL) {
@@ -293,7 +305,7 @@ implements
                     ctx.visit(
                         DSL.coalesce(
                             DSL.field(
-                            select(jsonArrayAgg(function(N_JSON_EXTRACT, getDataType(), value, inline("$"))))
+                            select(jsonArrayAgg(new JSONFromText<>(value)))
                             .from(jsonTable((Field<JSON>) $onNull(JSONOnNull.NULL_ON_NULL), inline("$[*]"))
                                 .column(value, SQLDataType.JSON).path("$").as(N_T))
                             .where(value.ne((Field) inline("null")))

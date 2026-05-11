@@ -100,6 +100,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.SQLType;
 import java.sql.Types;
+import java.time.LocalTime;
+import java.time.OffsetTime;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -1240,7 +1242,7 @@ public class DefaultDataType<T> extends AbstractDataTypeX<T> {
         return d;
     }
 
-    static final boolean unsupportedDatetimePrecision(Scope ctx, DataType<?> type) {
+    static final boolean unsupportedDatetimePrecision(Configuration ctx, DataType<?> type) {
         if (!type.isDateTime())
             return false;
         else if (!type.precisionDefined())
@@ -1253,5 +1255,36 @@ public class DefaultDataType<T> extends AbstractDataTypeX<T> {
             return true;
         else
             return false;
+    }
+
+    static final boolean requiresTimePrecision(Configuration ctx, Object value, DataType<?> type) {
+        if (NO_SUPPORT_TIME_PRECISION.contains(ctx.dialect()))
+            return false;
+        else if (type.getFromType() == LocalTime.class && value instanceof LocalTime lt)
+            return lt.getNano() != 0;
+        else if (type.getFromType() == OffsetTime.class && value instanceof OffsetTime ot)
+            return ot.getNano() != 0;
+        else
+            return false;
+    }
+
+    static final int requiredTimePrecision(Object value) {
+        if (value instanceof LocalTime lt)
+            return requiredTimePrecision(lt.getNano());
+        else if (value instanceof OffsetTime ot)
+            return requiredTimePrecision(ot.getNano());
+        else
+            return 0;
+    }
+
+    static final int requiredTimePrecision(int nano) {
+        if ((nano % 1000) != 0)
+            return 9;
+        else if ((nano % 1000000) != 0)
+            return 6;
+        else if (nano != 0)
+            return 3;
+        else
+            return 0;
     }
 }

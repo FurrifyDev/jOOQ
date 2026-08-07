@@ -21,11 +21,11 @@
     <distributionManagement>
         <repository>
             <id>snepdragon</id>
-            <url>https://repo.snepdragon.net/releases</url>
+            <url>https://repo.internal.snepdragon.net/releases</url>
         </repository>
         <snapshotRepository>
             <id>snepdragon</id>
-            <url>https://repo.snepdragon.net/snapshots</url>
+            <url>https://repo.internal.snepdragon.net/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 

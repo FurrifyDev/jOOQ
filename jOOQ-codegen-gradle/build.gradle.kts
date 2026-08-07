@@ -22,8 +22,8 @@ version = "3.21.7.1"
 publishing {
     repositories {
         maven {
-            val releasesRepoUrl = uri("https://repo.snepdragon.net/releases")
-            val snapshotsRepoUrl = uri("https://repo.snepdragon.net/snapshots")
+            val releasesRepoUrl = uri("https://repo.internal.snepdragon.net/releases")
+            val snapshotsRepoUrl = uri("https://repo.internal.snepdragon.net/snapshots")
 
             name = "snepdragon"
             url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl

@@ -149,6 +149,7 @@ import static org.jooq.impl.DSL.key;
 // ...
 import static org.jooq.impl.DSL.name;
 import static org.jooq.impl.DSL.noCondition;
+import static org.jooq.impl.DSL.noTable;
 import static org.jooq.impl.DSL.one;
 import static org.jooq.impl.DSL.orderBy;
 import static org.jooq.impl.DSL.partitionBy;
@@ -2536,11 +2537,16 @@ implements
         // [#14985] [#15755] Add skipped join segments from path joins
         tablelist = prependPathJoins(context, where, tablelist);
 
-        if (with != null && transformInlineCTE(context.configuration())) {
+        if (with != null) {
+            if (transformInlineCTE(context.configuration())) {
 
 
 
 
+            }
+
+            // [#12579] Locally scoped CTE must not be mapped
+            context.scopeRegister(with.ctes);
         }
 
         for (Entry<QueryPart, QueryPart> entry : localQueryPartMapping.entrySet())
@@ -5318,6 +5324,7 @@ implements
         // TODO: This and similar methods should be refactored, patterns extracted...
         int index = getFrom().size() - 1;
         Table<?> joined = null;
+        Table<?> lhs = (index >= 0 ? getFrom().get(index) : noTable());
 
         switch (type) {
             case JOIN:
@@ -5325,7 +5332,7 @@ implements
             case LEFT_SEMI_JOIN:
             case LEFT_ANTI_JOIN:
             case FULL_OUTER_JOIN: {
-                TableOptionalOnStep<Record> o = getFrom().get(index).join(table, type, hint);
+                TableOptionalOnStep<Record> o = lhs.join(table, type, hint);
 
                 if (conditions instanceof Condition c)
                     joined = o.on(c);
@@ -5337,7 +5344,7 @@ implements
 
             case LEFT_OUTER_JOIN:
             case RIGHT_OUTER_JOIN: {
-                TablePartitionByStep<?> p = (TablePartitionByStep<?>) getFrom().get(index).join(table, type, hint);
+                TablePartitionByStep<?> p = (TablePartitionByStep<?>) lhs.join(table, type, hint);
                 TableOnStep<?> o = p;
 
 
@@ -5359,13 +5366,21 @@ implements
             case NATURAL_FULL_OUTER_JOIN:
             case CROSS_APPLY:
             case OUTER_APPLY:
-                joined = getFrom().get(index).join(table, type, hint);
+                joined = lhs.join(table, type, hint);
                 break;
 
             default: throw new IllegalArgumentException("Bad join type: " + type);
         }
 
-        getFrom().set(index, joined);
+        if (index >= 0) {
+            if (joined instanceof NoTable) {}
+            else if (joined instanceof NoTableJoin t)
+                getFrom().set(index, t.table);
+            else
+                getFrom().set(index, joined);
+        }
+        else
+            addFrom(joined);
     }
 
     @Override

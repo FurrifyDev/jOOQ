@@ -5012,6 +5012,9 @@ final class DefaultParseContext extends AbstractParseContext implements ParseCon
         if (!fields.isEmpty())
             elementListStep = elementListStep.columns(fields);
 
+        if (parseKeywordIf("PRIMARY KEY"))
+            constraints.add(parsePrimaryKeySpecification(null, false).constraint());
+
         CreateTableElementListStep constraintStep = constraints.isEmpty()
             ? elementListStep
             : elementListStep.constraints(constraints);
@@ -6048,18 +6051,20 @@ final class DefaultParseContext extends AbstractParseContext implements ParseCon
 
             case 'R':
                 if (parseKeywordIf("RENAME")) {
-                    if (parseKeywordIf("AS", "TO")) {
-                        Table<?> newName = parseTableName();
-
-                        return s1.renameTo(newName);
-                    }
-                    else if (parseKeywordIf("COLUMN")) {
+                    Supplier<DDLQuery> renameColumn = () -> {
                         boolean ifExists = parseKeywordIf("IF EXISTS");
                         Name oldName = parseIdentifier();
                         parseKeyword("AS", "TO");
                         Name newName = parseIdentifier();
 
                         return (ifExists ? s1.renameColumnIfExists(oldName) : s1.renameColumn(oldName)).to(newName);
+                    };
+
+                    if (parseKeywordIf("AS", "TO")) {
+                        return s1.renameTo(parseTableName());
+                    }
+                    else if (parseKeywordIf("COLUMN")) {
+                        return renameColumn.get();
                     }
                     else if (parseKeywordIf("INDEX")) {
                         Name oldName = parseIdentifier();
@@ -6075,6 +6080,8 @@ final class DefaultParseContext extends AbstractParseContext implements ParseCon
 
                         return s1.renameConstraint(oldName).to(newName);
                     }
+                    else
+                        return renameColumn.get();
                 }
 
                 break;

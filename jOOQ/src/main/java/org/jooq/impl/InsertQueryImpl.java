@@ -54,6 +54,8 @@ import static org.jooq.Clause.INSERT_RETURNING;
 // ...
 // ...
 // ...
+// ...
+// ...
 import static org.jooq.SQLDialect.DERBY;
 import static org.jooq.SQLDialect.DUCKDB;
 // ...
@@ -69,11 +71,13 @@ import static org.jooq.SQLDialect.POSTGRES;
 // ...
 // ...
 // ...
+// ...
 import static org.jooq.SQLDialect.SQLITE;
 // ...
 // ...
 // ...
 import static org.jooq.SQLDialect.TRINO;
+import static org.jooq.SQLDialect.YUGABYTEDB;
 import static org.jooq.conf.ParamType.INLINED;
 import static org.jooq.impl.ConditionProviderImpl.extractCondition;
 import static org.jooq.impl.DSL.constraint;
@@ -153,6 +157,7 @@ import org.jooq.Record;
 // ...
 import org.jooq.Row;
 import org.jooq.SQLDialect;
+import org.jooq.SQLDialectCategory;
 import org.jooq.Scope;
 import org.jooq.Select;
 import org.jooq.Table;
@@ -186,6 +191,7 @@ implements
     static final Set<SQLDialect> NO_SUPPORT_DERIVED_COLUMN_LIST_IN_MERGE_USING = SQLDialect.supportedBy(DERBY, H2);
     static final Set<SQLDialect> NO_SUPPORT_SUBQUERY_IN_MERGE_USING            = SQLDialect.supportedBy(DERBY);
     static final Set<SQLDialect> REQUIRE_NEW_MYSQL_EXCLUDED_EMULATION          = SQLDialect.supportedBy(MYSQL);
+    static final Set<SQLDialect> SUPPORT_NATIVE_EXCLUDED                       = SQLDialect.supportedBy(DUCKDB, POSTGRES, SQLITE, YUGABYTEDB);
     static final Set<SQLDialect> NO_SUPPORT_INSERT_ALIASED_TABLE               = SQLDialect.supportedBy(DERBY, DUCKDB, FIREBIRD, H2, MARIADB, MYSQL, TRINO);
     static final Set<SQLDialect> NO_SUPPORT_ON_CONSTRAINT_ON_CONFLICT          = SQLDialect.supportedUntil(DUCKDB);
 
@@ -885,11 +891,21 @@ implements
 
 
 
-            if (requireNewMySQLExcludedEmulation)
-                s = selectFrom(s.asTable(DSL.table(N_EXCLUDED), keysFlattened));
+            if (requireNewMySQLExcludedEmulation || SUPPORT_NATIVE_EXCLUDED.contains(ctx.dialect())) {
+                Table<?> t = s.asTable(DSL.table(N_EXCLUDED), keysFlattened);
 
-            // [#8353] TODO: Support overlapping embeddables
-            toSQLInsertSelect(ctx, s);
+                if (requireNewMySQLExcludedEmulation)
+                    toSQLInsertSelect(ctx, selectFrom(t));
+                else
+                    toSQLInsertSelect(ctx, s);
+
+                // [#19700] Map all original field expressions to their generated EXCLUDED alias
+                scopeRegisterExcludedColumnMapping(ctx, s, t);
+            }
+
+            else
+                // [#8353] TODO: Support overlapping embeddables
+                toSQLInsertSelect(ctx, s);
 
             ctx.data().remove(DATA_INSERT_SELECT_WITHOUT_INSERT_COLUMN_LIST);
             ctx.data().remove(DATA_INSERT_SELECT);
@@ -966,6 +982,23 @@ implements
             ctx.visit(insertMaps);
 
         return fields;
+    }
+
+    private final void scopeRegisterExcludedColumnMapping(Context<?> ctx, Select<?> s, Table<?> t) {
+        List<Field<?>> f1 = s.getSelect();
+        Field<?>[] f2 = t.fields();
+
+        for (int i = 0; i < f1.size() && i < f2.length; i++) {
+            Field<?> f = f1.get(i);
+
+            if (Tools.hasName(ctx, f)) {
+                Table<?> t1 = f instanceof TableField ? ((TableField<?, ?>) f).getTable() : null;
+
+                // [#20032] Don't map source fields from source tables that match the target table
+                if (!table(ctx).equals(t1))
+                    ctx.scopeRegister(f, false, f2[i]);
+            }
+        }
     }
 
     private final void acceptDefaultValuesEmulation(Context<?> ctx, int length) {

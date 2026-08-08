@@ -9,9 +9,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_25
 }
 
-group = "org.jooq"
-version = "3.21.4-SNAPSHOT"
-
 repositories {
     mavenLocal()
     mavenCentral()
@@ -19,6 +16,7 @@ repositories {
 
 group = "org.jooq"
 version = "3.21.7.1"
+
 publishing {
     repositories {
         maven {
